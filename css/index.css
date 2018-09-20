@@ -16,14 +16,34 @@ header{
     background-attachment: fixed;
     background-repeat: repeat-y;
 }
-
+#search-div{
+    margin-bottom: 20px;
+}
 main{
-    padding-top: 20px;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
     box-shadow: 0px -5px 3px 0px rgba(0, 0, 0, 0.3);
 }
 .am-input-group{
     box-shadow: 0px -5px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* 头部样式结束 */
+
+
+/* 底部样式 */
+#toolbar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+#toolbar a{
+    font-size: 14px;
+}
+#toolbar i{
+    font-size: 18px;
 }
 
 /* 卡片样式 */
@@ -44,7 +64,7 @@ main{
     height: auto;
 }
 
-.card-btn-group i, .card-img-hot i, .card-img-beauty i{
+.card-btn-group i{
     margin-right: 10px;
 }
 
@@ -58,24 +78,27 @@ body > main > div > div.card-img figure{
 .card-img-hot{
     margin: 0 !important;
 }
-.card-img-hot, .card-img-beauty{
+.card-img-info{
     position: absolute;
     background: rgba(0, 0, 0, 0.55);
+    font-size: 12px;
     color: #fff;
-    font-size: 14px;
-    padding: 2px;
-    padding-left: 4px;
-    padding-right: 4px;
-    border-radius: 8px;
-    z-index: 999;
-}
-.card-img-hot{
     bottom: 0;
-    right: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    height: 19px;
 }
-.card-img-beauty{
-    bottom: 6px;
-    right: 0;
+
+.card-img-info div{
+    border-right: 1px solid #eee;
+}
+.card-img-info div p{
+    margin: 0 !important;
+}
+
+.card-img-hot i, .card-img-beauty i{
+    margin-right: 4px;
 }
 
 .card-name{
@@ -96,4 +119,55 @@ body > main > div > div.card-img figure{
     display: inline-flex;
 }
 
+.am-btn-junxun{
+    color: #fff;
+    background-color: #518379;
+    border-color: #ffffff;
+}
+
+#homepage > div > div.card-img figure{
+    margin: 0 !important;
+}
+
+.votes{
+    font-size: 18px;
+    color: #777;
+    font-style: italic;
+}
+
 /* 卡片样式结束 */
+
+
+
+/* 图片上传 */
+
+#upload{
+    padding: 20px;
+
+}
+
+#main-photo-box, #second-photo-box{
+    text-align: center;
+    border: 2px dashed #00BCD4;
+    height: 100px;
+    cursor: pointer;
+}
+
+#second-photo-box {
+    margin-top: 20px;
+    border: 2px dashed #8BC34A;
+    cursor: pointer;
+}
+
+
+#say-something{
+    margin-top: 20px;
+}
+
+#submit{
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* 图片上传结束 */

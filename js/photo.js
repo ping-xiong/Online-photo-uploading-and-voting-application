@@ -1,0 +1,1 @@
+var Moxie = "https://cdn.bootcss.com/plupload/3.1.2/Moxie.swf";

@@ -26,49 +26,91 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+    <main>
+        <section id="homepage" style="display: block">
+            <header>
 
-    <header>
-
-    </header>
-    <div class="am-input-group">
-        <input type="text" class="am-form-field" placeholder="搜索名字">
-        <span class="am-input-group-btn">
+            </header>
+            <div class="am-input-group" id="search-div">
+                <input type="text" class="am-form-field" placeholder="搜索名字">
+                <span class="am-input-group-btn">
             <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
           </span>
-    </div>
-    <main>
-        <div class="card">
-            <div class="card-img">
-                <p class="card-img-beauty"><i class="am-icon-eye"></i> 颜值：</p>
-                <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">
-                    <img src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
-                    <img style="display: none" src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
-                </figure>
-                <p class="card-img-hot"><i class="am-icon-fire"></i> 人气：</p>
             </div>
-            <div class="tags">
-                <span class="am-badge am-badge-warning am-text-sm img-num">2张</span>
-            </div>
-
-            <div class="card-desc">
-                <p class="card-name">1. 小明</p>
-                <p class="card-say">测试测试测试测试测试</p>
-            </div>
-            <div class="card-btn-group">
-                <div class="am-btn-group am-btn-group-justify">
-                    <a class="am-btn am-btn-danger" role="button"><i class="am-icon-check-square-o"></i>投票</a>
-                    <a class="am-btn am-btn-primary" role="button"><i class="am-icon-th-list"></i>评论</a>
-                    <a class="am-btn am-btn-success" role="button"><i class="am-icon-share-alt"></i>分享</a>
+            <div class="card">
+                <div class="card-img">
+                    <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">
+                        <img src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
+                        <img style="display: none" src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
+                    </figure>
+                    <div class="am-g card-img-info">
+                        <div class="am-u-sm-4">
+                            <p class="card-img-beauty"><i class="am-icon-eye"></i> 颜值：</p>
+                        </div>
+                        <div class="am-u-sm-4">
+                            <p class="card-img-hot"><i class="am-icon-smile-o"></i> 笑容：</p>
+                        </div>
+                        <div class="am-u-sm-4">
+                            <p class="card-img-hot"><i class="am-icon-fire"></i> 人气：</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tags">
+                    <span class="am-badge am-badge-warning am-text-sm img-num">2图</span>
+                </div>
+                <div class="card-desc">
+                    <p class="card-name">1. 小明 <span class="votes">(100票)</span></p>
+                    <p class="card-say">测试测试测试测试测试</p>
+                </div>
+                <div class="card-btn-group">
+                    <div class="am-btn-group am-btn-group-justify">
+                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-check-square-o"></i>投票</a>
+                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-th-list"></i>评论</a>
+                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-share-alt"></i>分享</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
-    <footer>
+        </section>
+        <section id="upload" style="display: none">
+            <div class="am-form-group">
+                <label for="doc-ds-ipt-1">标题/名字</label>
+                <input type="text" class="am-form-field am-round" placeholder="最好是姓名哦">
+            </div>
+            <div id="main-photo-box" class="am-vertical-align">
+                <div class="am-vertical-align-middle">
+                    <i class="am-icon-picture-o"></i> 选择主图
+                </div>
+            </div>
+            <div id="second-photo-box" class="am-vertical-align">
+                <div class="am-vertical-align-middle">
+                    <i class="am-icon-picture-o"></i> 选择额外图片(可多选,可留空)
+                </div>
+            </div>
+            <div class="am-form-group" id="say-something">
+                <label for="doc-ta-1">说点什么吧</label>
+                <textarea class="am-form-field am-radius" rows="4" id="doc-ta-1" placeholder="感慨/对教官说的话/对大学的期待..."></textarea>
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="submit">确认提交</button>
+        </section>
+        <section id="help" style="display: none">
 
+        </section>
+
+    </main>
+    <footer id="toolbar">
+        <div class="am-btn-group am-btn-group-justify bottom-btns">
+            <a class="am-btn am-btn-danger" role="button" href="javascript:;" onclick="switchMenu('homepage')"><i class="am-icon-home"></i><br>首页</a>
+            <a class="am-btn am-btn-primary" role="button" href="javascript:;" onclick="switchMenu('upload')"><i class="am-icon-picture-o"></i><br>我要晒照</a>
+            <a class="am-btn am-btn-success" role="button" href="javascript:;" onclick="switchMenu('help')"><i class="am-icon-question-circle-o"></i><br>帮助</a>
+        </div>
     </footer>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://cdn.bootcss.com/plupload/3.1.2/plupload.full.min.js"></script>
+    <script src="https://cdn.bootcss.com/plupload/3.1.2/moxie.min.js"></script>
     <script src="js/lib/template-web.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/photo.js"></script>
 </body>
 </html>
