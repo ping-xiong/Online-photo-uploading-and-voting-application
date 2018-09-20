@@ -1,6 +1,32 @@
 html, body{
     background: #f8f8f8;
+    max-width: 600px;
+    width: 100%;
+    height: auto;
 }
+
+
+/* 头部图片样式 */
+header{
+    height: 300px;
+    width: 100%;
+    background-image: url("../images/header.jpg");
+    background-size: contain;
+    /*background-position: top;*/
+    background-attachment: fixed;
+    background-repeat: repeat-y;
+}
+
+main{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    box-shadow: 0px -5px 3px 0px rgba(0, 0, 0, 0.3);
+}
+.am-input-group{
+    box-shadow: 0px -5px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+/* 卡片样式 */
 .card{
     background-color: #fff;
     border: 1px solid transparent;
@@ -12,14 +38,18 @@ html, body{
     height: auto;
     margin: 0 auto;
 }
-.card .card-img img{
+.card-img-tag img{
     max-width: 400px;
     width: 100%;
     height: auto;
 }
 
-.card-btn-group i, .card-img-hot i{
+.card-btn-group i, .card-img-hot i, .card-img-beauty i{
     margin-right: 10px;
+}
+
+body > main > div > div.card-img figure{
+    margin: 0 !important;
 }
 
 .card-img{
@@ -28,26 +58,42 @@ html, body{
 .card-img-hot{
     margin: 0 !important;
 }
-.card-img-hot{
+.card-img-hot, .card-img-beauty{
     position: absolute;
     background: rgba(0, 0, 0, 0.55);
-    bottom: 0;
-    right: 0;
     color: #fff;
     font-size: 14px;
     padding: 2px;
     padding-left: 4px;
     padding-right: 4px;
     border-radius: 8px;
+    z-index: 999;
+}
+.card-img-hot{
+    bottom: 0;
+    right: 0;
+}
+.card-img-beauty{
+    bottom: 6px;
+    right: 0;
 }
 
 .card-name{
     margin: 10px;
     font-size: 20px;
     font-family: sans-serif;
+    clear: both;
 }
 
 .card-say{
     margin: 10px;
     text-indent: 2em;
 }
+
+.tags{
+    float: right;
+    margin: 0 !important;
+    display: inline-flex;
+}
+
+/* 卡片样式结束 */

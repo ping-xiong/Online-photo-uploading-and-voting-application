@@ -17,7 +17,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
-    <title>最美军训服照片</title>
+    <title>广科大吧最美军训照</title>
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
 
@@ -30,12 +30,26 @@
     <header>
 
     </header>
+    <div class="am-input-group">
+        <input type="text" class="am-form-field" placeholder="搜索名字">
+        <span class="am-input-group-btn">
+            <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
+          </span>
+    </div>
     <main>
         <div class="card">
             <div class="card-img">
-                <img src="images/test.jpg" alt="图片">
-                <p class="card-img-hot"><i class="am-icon-eye"></i> 人气：</p>
+                <p class="card-img-beauty"><i class="am-icon-eye"></i> 颜值：</p>
+                <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">
+                    <img src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
+                    <img style="display: none" src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
+                </figure>
+                <p class="card-img-hot"><i class="am-icon-fire"></i> 人气：</p>
             </div>
+            <div class="tags">
+                <span class="am-badge am-badge-warning am-text-sm img-num">2张</span>
+            </div>
+
             <div class="card-desc">
                 <p class="card-name">1. 小明</p>
                 <p class="card-say">测试测试测试测试测试</p>
