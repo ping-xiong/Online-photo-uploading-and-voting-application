@@ -3,6 +3,7 @@ html, body{
     max-width: 600px;
     width: 100%;
     height: auto;
+    position: relative;
 }
 
 
@@ -16,6 +17,15 @@ header{
     background-attachment: fixed;
     background-repeat: repeat-y;
 }
+
+@media screen and (min-width: 600px) {
+    header {
+        background-size: 600px;
+        background-position: left top;
+        background-repeat: no-repeat;
+    }
+}
+
 #search-div{
     margin-bottom: 20px;
 }
@@ -36,6 +46,7 @@ main{
     bottom: 0;
     left: 0;
     width: 100%;
+    max-width: 600px;
     z-index: 999;
 }
 
@@ -151,10 +162,10 @@ body > main > div > div.card-img figure{
     border: 2px dashed #00BCD4;
     height: 100px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 #second-photo-box {
-    margin-top: 20px;
     border: 2px dashed #8BC34A;
     cursor: pointer;
 }
@@ -169,5 +180,10 @@ body > main > div > div.card-img figure{
     margin: 0 auto;
 }
 
-
+#picture-preview{
+    height: 100%;
+}
+.preview-box{
+    height: 100%;
+}
 /* 图片上传结束 */

@@ -76,14 +76,36 @@
                 <label for="doc-ds-ipt-1">标题/名字</label>
                 <input type="text" class="am-form-field am-round" placeholder="最好是姓名哦">
             </div>
+            <i class="am-icon-picture-o"></i> 选择主图
             <div id="main-photo-box" class="am-vertical-align">
-                <div class="am-vertical-align-middle">
-                    <i class="am-icon-picture-o"></i> 选择主图
+                <div class="am-vertical-align-middle preview-box">
+                    <i class="am-icon-plus-circle add-picture"  style="font-size: 40px;line-height: 100px;"></i>
+                    <img id="picture-preview" src="" alt="图片预览" style="display: none">
                 </div>
             </div>
-            <div id="second-photo-box" class="am-vertical-align">
-                <div class="am-vertical-align-middle">
-                    <i class="am-icon-picture-o"></i> 选择额外图片(可多选,可留空)
+            <button class="am-btn am-btn-default" id="detectFace">
+                <i class="am-icon-spinner am-icon-spin"></i>
+                加载中
+            </button>
+            <div id="main-process-bar" class="am-progress" style="display: none">
+                <div class="am-progress-bar" id="main-process-bar-process" style="width: 0%">0%</div>
+            </div>
+            <br>
+
+            <i class="am-icon-picture-o"></i> 选择副图(可多选,可留空,最多三张)
+            <div class="am-g">
+                <div class="am-u-sm-4">
+                    <div id="second-photo-box" class="am-vertical-align">
+                        <div class="am-vertical-align-middle">
+                            <i class="am-icon-plus-circle"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-u-sm-4">
+
+                </div>
+                <div class="am-u-sm-4">
+
                 </div>
             </div>
             <div class="am-form-group" id="say-something">
@@ -108,7 +130,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
     <script src="https://cdn.bootcss.com/plupload/3.1.2/plupload.full.min.js"></script>
-    <script src="https://cdn.bootcss.com/plupload/3.1.2/moxie.min.js"></script>
+    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="js/lib/template-web.js"></script>
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
