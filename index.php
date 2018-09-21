@@ -79,13 +79,19 @@
             <i class="am-icon-picture-o"></i> 选择主图
             <div id="main-photo-box" class="am-vertical-align">
                 <div class="am-vertical-align-middle preview-box">
-                    <i class="am-icon-plus-circle add-picture"  style="font-size: 40px;line-height: 100px;"></i>
-                    <img id="picture-preview" src="" alt="图片预览" style="display: none">
+                    <i class="am-icon-plus-circle add-picture"  style="font-size: 40px;line-height: 120px;"></i>
+                    <div class="am-g" id="picture-preview-box" style="display: none">
+                        <div class="am-u-sm-6" style="height: 100%;"><img id="picture-preview" src="" alt="图片预览"></div>
+                        <div class="am-u-sm-6">
+                            <p style="text-align: left"><i class="am-icon-eye"></i> 颜值：<span id="card-img-beauty-value"></span></p>
+                            <p style="text-align: left"><i class="am-icon-smile-o"></i> 笑容：<span id="card-img-smile-value"></span></p>
+                            <p class="hint">注：AI分析结果仅供参考</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button class="am-btn am-btn-default" id="detectFace">
-                <i class="am-icon-spinner am-icon-spin"></i>
-                加载中
+            <button class="am-btn am-btn-default" id="detectFace" style="display: none">
+                <i class="am-icon-search"></i> 开始分析颜值
             </button>
             <div id="main-process-bar" class="am-progress" style="display: none">
                 <div class="am-progress-bar" id="main-process-bar-process" style="width: 0%">0%</div>
@@ -95,17 +101,25 @@
             <i class="am-icon-picture-o"></i> 选择副图(可多选,可留空,最多三张)
             <div class="am-g">
                 <div class="am-u-sm-4">
-                    <div id="second-photo-box" class="am-vertical-align">
+                    <div id="second-photo-box-1" class="am-vertical-align">
                         <div class="am-vertical-align-middle">
                             <i class="am-icon-plus-circle"></i>
                         </div>
                     </div>
                 </div>
                 <div class="am-u-sm-4">
-
+                    <div id="second-photo-box-2" class="am-vertical-align">
+                        <div class="am-vertical-align-middle">
+                            <i class="am-icon-plus-circle"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="am-u-sm-4">
-
+                    <div id="second-photo-box-3" class="am-vertical-align">
+                        <div class="am-vertical-align-middle">
+                            <i class="am-icon-plus-circle"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="am-form-group" id="say-something">
@@ -129,7 +143,7 @@
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="https://cdn.bootcss.com/plupload/3.1.2/plupload.full.min.js"></script>
+    <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
     <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="js/lib/template-web.js"></script>
     <script src="js/index.js"></script>

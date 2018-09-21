@@ -157,17 +157,17 @@ body > main > div > div.card-img figure{
 
 }
 
-#main-photo-box, #second-photo-box{
+#main-photo-box, #second-photo-box-1,#second-photo-box-2,#second-photo-box-3 {
     text-align: center;
     border: 2px dashed #00BCD4;
-    height: 100px;
+    height: 120px;
     cursor: pointer;
-    margin-bottom: 20px;
 }
 
-#second-photo-box {
+#second-photo-box-1,#second-photo-box-2,#second-photo-box-3 {
     border: 2px dashed #8BC34A;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
 
@@ -180,10 +180,27 @@ body > main > div > div.card-img figure{
     margin: 0 auto;
 }
 
-#picture-preview{
+#picture-preview, #picture-preview img, #picture-preview-box{
     height: 100%;
 }
+
+#picture-preview-box p{
+    margin: 0;
+    text-shadow: 2px 2px 2px #fff;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: left;
+}
+
 .preview-box{
     height: 100%;
+}
+
+.hint{
+    font-size: 12px;
+    color: #777;
+}
+
+#detectFace{
+    width: 100%;
 }
 /* 图片上传结束 */

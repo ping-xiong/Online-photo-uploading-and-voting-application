@@ -11,6 +11,7 @@ class config
     public static $detectFace = [
         "APPID"=>"2108474938",
         "APPKEY"=>"zZOXCR29ET8lEeQd",
-        "api"=>"https://api.ai.qq.com/fcgi-bin/face/face_detectface"
+        "api"=>"https://api.ai.qq.com/fcgi-bin/face/face_detectface",
+        "img_path"=>"../images/upload/"
     ];
 }

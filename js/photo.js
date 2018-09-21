@@ -1,71 +1,45 @@
-
-//plupload中为我们提供了mOxie对象
-//有关mOxie的介绍和说明请看：https://github.com/moxiecode/moxie/wiki/API
-//如果你不想了解那么多的话，那就照抄本示例的代码来得到预览的图片吧
-function previewImage(file, callback) { //file为plupload事件监听函数参数中的file对象,callback为预览图片准备完成的回调函数
-    //if(!file || !/image\//.test(file.type)) return; //确保文件是图片
-    console.log("图片处理");
-    var preloader = new moxie.image.Image();
-    preloader.onload = function() {
-        console.log("载入完成");
-        preloader.downsize(300, 300); //先压缩一下要预览的图片,宽300，高300
-        var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
-        console.log(imgsrc);
-        callback && callback(imgsrc); //callback传入的参数为预览图片的url
-        preloader.destroy();
-        preloader = null;
-    };
-    preloader.onerror = function () {
-        console.log("图片预览失败");
-    };
-    preloader.load(file.getSource());
-}
+var isAnalysis = 0; // 是否完成分析
 
 var uploader = new plupload.Uploader({
     runtimes : 'html5,flash,silverlight,html4',
-
-    browse_button : 'main-photo-box', // you can pass in id...
-   // container: document.getElementById('main-photo-box'), // ... or DOM Element itself
-
+    browse_button : 'main-photo-box',
     url : "php/fileUpload.php",
+    unique_names : true,
     multi_selection:false,
-    unique_names:true,
     resize:{
         width: 600,
-        quality: 80,
+        quality: 90,
         preserve_headers:false
     },
     filters : {
-        max_file_size : '5mb',
+        max_file_size: '5mb',
         mime_types: [
-            {title : "图片文件", extensions : "jpg,bmp,png,jpeg"}
+            {title: "Image files", extensions: "jpg,bmp,png,jpeg"}
         ]
     },
-
     // Flash settings
-    flash_swf_url : 'https://cdn.bootcss.com/plupload/3.1.2/Moxie.swf',
-
+    flash_swf_url : 'https://cdn.bootcss.com/plupload/2.3.6/Moxie.swf',
     // Silverlight settings
     silverlight_xap_url : 'https://rawgithub.com/moxiecode/moxie/master/bin/silverlight/Moxie.cdn.xap',
-
     init: {
         PostInit: function() {
 
         },
-
         FilesAdded: function(up, files) {
             plupload.each(files, function(file) {
-                // document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
                 // console.log(file.id+","+file.name+","+plupload.formatSize(file.size));
                 // console.log(files);
-                // $("#picture-preview").html("");
                 var preloader = new moxie.image.Image();
                 preloader.onload = function() {
                     preloader.downsize(300, 300); //先压缩一下要预览的图片,宽300，高300
                     var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
                     $(".add-picture").css("display","none");
-                    $("#picture-preview").attr("src", imgsrc).css("display", "block");
-
+                    $("#picture-preview-box").css("display", "block");
+                    $("#picture-preview").attr("src", imgsrc);
+                    $("#detectFace").css("display", "block");
+                    $("#detectFace").html('<i class="am-icon-search"></i> 开始分析颜值');
+                    $("#card-img-beauty-value").text("");
+                    $("#card-img-smile-value").text("");
                     preloader.destroy();
                     preloader = null;
                 };
@@ -74,23 +48,55 @@ var uploader = new plupload.Uploader({
                 };
                 preloader.load(file.getSource());
 
+                isAnalysis = 0;
+
             });
         },
-
         UploadProgress: function(up, file) {
-            // document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
             $("#main-process-bar").css("display", "block");
             $("#main-process-bar-process").css("width", file.percent+"%").text(file.percent+"%");
         },
-
         UploadComplete: function(up, file){
-            layer.msg('上传成功');
+            // 获取上传的文件名字
+            console.log(file);
+            console.log(file[0].target_name);
+            layer.msg('上传成功，分析中');
             $("#main-process-bar").hide(500);
-        },
+            // 开始分析
+            var data = {
+                api:"detectFace",
+                fileName:file[0].target_name
+            };
+            submit_ajax(data, function (result) {
+                $("#detectFace").html('<i class="am-icon-check"></i> 分析完成');
+                console.log(result);
+                if (result.ret == 0){
+                    layer.msg('分析成功');
+                    var beauty = "";
+                    var smile = "";
+                    for (var i = 0; i < result.data.face_list.length; i++) {
 
+                        if (i == 0){
+                            beauty = result.data.face_list[i].beauty+"分";
+                            smile = result.data.face_list[i].expression+"分";
+                        } else{
+                            beauty += ", "+result.data.face_list[i].beauty+"分";
+                            smile += ", "+result.data.face_list[i].expression+"分";
+                        }
+                    }
+                    $("#card-img-beauty-value").text(beauty);
+                    $("#card-img-smile-value").text(smile);
+                    isAnalysis = 1;
+                } else{
+                    layer.msg('分析失败，很有可能没有检测到人脸,请重试');
+                }
+            });
+            up.removeFile(file[0]);
+        },
         Error: function(up, err) {
             // document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
             console.log("错误码："+ err.code+", "+ err.message);
+            layer.msg("错误码："+ err.code+", "+ err.message);
         }
     }
 });
@@ -98,6 +104,17 @@ var uploader = new plupload.Uploader({
 uploader.init();
 
 document.getElementById('detectFace').onclick = function() {
+    $("#detectFace").html('<i class="am-icon-spinner am-icon-spin"></i> 分析中');
     uploader.start();
     return false;
 };
+
+function submit_ajax(data, callback) {
+    $.ajax({
+        url: "php/api.php",
+        data:data,
+        type:"POST",
+        dataType: "JSON",
+        success: callback
+    });
+}
