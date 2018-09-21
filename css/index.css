@@ -167,7 +167,11 @@ body > main > div > div.card-img figure{
 #second-photo-box-1,#second-photo-box-2,#second-photo-box-3 {
     border: 2px dashed #8BC34A;
     cursor: pointer;
-    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+#clearSecondPicture{
+    width: 100%;
 }
 
 
@@ -202,5 +206,14 @@ body > main > div > div.card-img figure{
 
 #detectFace{
     width: 100%;
+}
+#picture-preview1, #picture-preview2, #picture-preview3{
+    width: 100%;
+}
+
+#word-count{
+    float: right;
+    font-size: 14px;
+    color: #777;
 }
 /* 图片上传结束 */

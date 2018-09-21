@@ -17,7 +17,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // 人脸检测
             $fileName = test_input($_POST['fileName']);
             $result = detectFace::detect(config::$detectFace['img_path'].$fileName);
-            echo $result;
+            // 提取需要的属性
+            $data = json_decode($result);
+            $beauty = "";
+            $smile = "";
+            for ($i = 0; $i < count($data->data->face_list); $i++){
+                if ($i == 0){
+                    $beauty = $data->data->face_list[$i]->beauty."分";
+                    $smile = $data->data->face_list[$i]->expression."分";
+                } else{
+                    $beauty .= ", ".$data->data->face_list[$i]->beauty."分";
+                    $smile .= ", ".$data->data->face_list[$i]->expression."分";
+                }
+            }
+            $final = [
+                "ret"=>$data->ret,
+                "beauty"=>$beauty,
+                "smile"=>$smile
+            ];
+            echo json_encode($final);
             break;
         case 'submit':
 

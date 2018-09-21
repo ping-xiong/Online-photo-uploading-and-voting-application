@@ -74,7 +74,7 @@
         <section id="upload" style="display: none">
             <div class="am-form-group">
                 <label for="doc-ds-ipt-1">标题/名字</label>
-                <input type="text" class="am-form-field am-round" placeholder="最好是姓名哦">
+                <input type="text" id="post-title" class="am-form-field am-round" placeholder="最好是姓名哦">
             </div>
             <i class="am-icon-picture-o"></i> 选择主图
             <div id="main-photo-box" class="am-vertical-align">
@@ -83,8 +83,8 @@
                     <div class="am-g" id="picture-preview-box" style="display: none">
                         <div class="am-u-sm-6" style="height: 100%;"><img id="picture-preview" src="" alt="图片预览"></div>
                         <div class="am-u-sm-6">
-                            <p style="text-align: left"><i class="am-icon-eye"></i> 颜值：<span id="card-img-beauty-value"></span></p>
-                            <p style="text-align: left"><i class="am-icon-smile-o"></i> 笑容：<span id="card-img-smile-value"></span></p>
+                            <p style="text-align: left"><i class="am-icon-eye"></i> 颜值：<span id="card-img-beauty-value">等待分析</span></p>
+                            <p style="text-align: left"><i class="am-icon-smile-o"></i> 笑容：<span id="card-img-smile-value">等待分析</span></p>
                             <p class="hint">注：AI分析结果仅供参考</p>
                         </div>
                     </div>
@@ -98,8 +98,8 @@
             </div>
             <br>
 
-            <i class="am-icon-picture-o"></i> 选择副图(可多选,可留空,最多三张)
-            <div class="am-g">
+            <i class="am-icon-picture-o"></i> 选择副图(选填,可多选,最多三张)
+            <div class="am-g" id="second-photo-box">
                 <div class="am-u-sm-4">
                     <div id="second-photo-box-1" class="am-vertical-align">
                         <div class="am-vertical-align-middle">
@@ -122,11 +122,19 @@
                     </div>
                 </div>
             </div>
-            <div class="am-form-group" id="say-something">
-                <label for="doc-ta-1">说点什么吧</label>
-                <textarea class="am-form-field am-radius" rows="4" id="doc-ta-1" placeholder="感慨/对教官说的话/对大学的期待..."></textarea>
+            <button class="am-btn am-btn-default" id="clearSecondPicture" style="display: none" onclick="clearSecondPictures()">
+                <i class="am-icon-trash"></i> 清空副图
+            </button>
+            <div id="main-process-bar2" class="am-progress" style="display: none">
+                <div class="am-progress-bar" id="main-process-bar-process2" style="width: 0%">0%</div>
             </div>
-            <button type="button" class="am-btn am-btn-primary" id="submit">确认提交</button>
+
+            <div class="am-form-group" id="say-something">
+                <label for="say">说点什么吧</label>
+                <textarea class="am-form-field am-radius" onkeydown="count_words()" rows="4" id="say" placeholder="感慨/对教官说的话/对大学的期待..."></textarea>
+                <span id="word-count">0/500字</span>
+            </div>
+            <button type="button" class="am-btn am-btn-primary" id="submit" onclick="submitNewPost()">确认提交</button>
         </section>
         <section id="help" style="display: none">
 
@@ -145,6 +153,7 @@
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
     <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+    <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>
     <script src="js/lib/template-web.js"></script>
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
