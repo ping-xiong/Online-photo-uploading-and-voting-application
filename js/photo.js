@@ -16,7 +16,7 @@ var uploader = new plupload.Uploader({
     unique_names : true,
     multi_selection:false,
     resize:{
-        width: 600,
+        width: 700,
         quality: 90,
         preserve_headers:false
     },
@@ -49,6 +49,7 @@ var uploader = new plupload.Uploader({
                     $("#detectFace").html('<i class="am-icon-search"></i> 开始分析颜值');
                     $("#card-img-beauty-value").text("");
                     $("#card-img-smile-value").text("");
+                    $("#card-img-people-value").text("");
                     startAnalysis();
                     preloader.destroy();
                     preloader = null;
@@ -86,6 +87,7 @@ var uploader = new plupload.Uploader({
                     layer.msg('分析成功');
                     $("#card-img-beauty-value").text(result.beauty);
                     $("#card-img-smile-value").text(result.smile);
+                    $("#card-img-people-value").text(result.people);
                     isAnalysis = 1;
                 } else{
                     layer.msg('分析失败，很有可能没有检测到人脸,请重试');
@@ -122,9 +124,10 @@ document.getElementById('detectFace').onclick = function () {
             layer.msg('分析成功');
             $("#card-img-beauty-value").text(result.beauty);
             $("#card-img-smile-value").text(result.smile);
+            $("#card-img-people-value").text(result.people);
             isAnalysis = 1;
         } else{
-            layer.msg('分析失败，很有可能没有检测到人脸,请重试');
+            layer.msg('分析失败，很可能没有检测到人脸。无需分析结果也可提交。');
         }
     });
 };
@@ -149,7 +152,7 @@ var mutil_uploader = new plupload.Uploader({
     unique_names : true,
     multi_selection:true,
     resize:{
-        width: 600,
+        width: 700,
         quality: 90,
         preserve_headers:false
     },
@@ -265,9 +268,18 @@ function resetAll() {
 
     $("#card-img-beauty-value").text("等待分析");
     $("#card-img-smile-value").text("等待分析");
+    $("#card-img-people-value").text("等待分析");
 
     $("#picture-preview-box").css("display","none");
     $(".add-picture").css("display","inline");
+
+    $("#post-title").val("");
+    $("#say").val("");
+    $("#word-count").text("0/500字");
+
+    $("#detectFace").css("display","none");
+
+    $("#clearSecondPicture").css("display","none");
 
     data = {
         "title": "",
@@ -278,6 +290,11 @@ function resetAll() {
 
     // 重置多选的div
     resetMutilPicture();
+
+    uploader.splice();
+    mutil_uploader.splice();
+    uploader.refresh();
+    mutil_uploader.refresh();
 }
 
 function resetMutilPicture() {
@@ -313,6 +330,7 @@ function submitNewPost() {
         layer.msg("想说的太多了哦，不能超过500字");
         return false;
     }
+    data.api = "submit";
     data.title = title;
     data.main_picture = main_picture;
     data.say = say;
@@ -323,7 +341,13 @@ function submitNewPost() {
         mutil_uploader.start();
     } else {
         // 直接提交
-        console.log(data);
+        // console.log(data);
+        submit_ajax(data, function (result) {
+            if (result.ret == 0){
+                layer.msg(result.msg);
+                resetAll();
+            }
+        });
     }
 }
 

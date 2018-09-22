@@ -4,6 +4,7 @@ html, body{
     width: 100%;
     height: auto;
     position: relative;
+    overflow-x: hidden;
 }
 
 
@@ -160,7 +161,7 @@ body > main > div > div.card-img figure{
 #main-photo-box, #second-photo-box-1,#second-photo-box-2,#second-photo-box-3 {
     text-align: center;
     border: 2px dashed #00BCD4;
-    height: 120px;
+    /*height: 120px;*/
     cursor: pointer;
 }
 
@@ -182,17 +183,20 @@ body > main > div > div.card-img figure{
 #submit{
     display: block;
     margin: 0 auto;
+    width: 100%;
 }
 
 #picture-preview, #picture-preview img, #picture-preview-box{
     height: 100%;
 }
-
+#analysis-div{
+    background: rgba(0, 0, 0, 0.5);
+}
 #picture-preview-box p{
     margin: 0;
-    text-shadow: 2px 2px 2px #fff;
-    background: rgba(255, 255, 255, 0.5);
+    text-shadow: 2px 2px 2px #607D8B;
     text-align: left;
+    color: #fff;
 }
 
 .preview-box{
@@ -215,5 +219,10 @@ body > main > div > div.card-img figure{
     float: right;
     font-size: 14px;
     color: #777;
+}
+
+#second-photo-box i{
+    color: #8ac24a;
+    font-size: 30px;
 }
 /* 图片上传结束 */
