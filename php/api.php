@@ -179,8 +179,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ];
                 echo json_encode($ret);
             }
+            break;
+        case 'getComments':
+            // 获取评论
+            include_once 'comment.php';
+            $comment = new comment($db->link);
+            $post_id = $db->test_input($_POST['post_id']);
+            $page = $db->test_input($_POST['page']);
+            $comment->getComments($post_id, $page);
 
-
+            break;
+        case 'comment':
+            // 评论
+            include_once 'comment.php';
+            $comment = new comment($db->link);
+            $post_id = $db->test_input($_POST['post_id']);
+            $name = $db->test_input($_POST['name']);
+            $say = $db->test_input($_POST['say']);
+            $ip = $db->getIP();
+            $comment->submitComment($post_id, $name, $say, $ip);
+            break;
+        case 'getCommentPage':
+            // 获取评论页数
+            include_once 'comment.php';
+            $comment = new comment($db->link);
+            $post_id = $db->test_input($_POST['post_id']);
+            $comment->getCommentPages($post_id);
             break;
     }
 

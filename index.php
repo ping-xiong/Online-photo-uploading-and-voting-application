@@ -16,6 +16,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="tieba.png">
     <title>广科大吧最美军训照</title>
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
@@ -27,7 +28,7 @@
 <body>
     <main>
         <section id="homepage" style="display: block">
-            <header>
+            <header id="header-background">
 
             </header>
             <div class="am-input-group" id="search-div">
@@ -60,8 +61,9 @@
                     <a href="javascript:;" class="" onclick="nextPage()">下一页</a>
                 </li>
             </ul>
+            <p style="text-align: center; font-size: 14px; color: #777">提示：点击图片可查看大图<br>多图可左右滑动切换下一张图</p>
             <p style="text-align: center; font-size: 14px; color: #777">
-                当前排序模式：最新上传(默认) <a href="javascript:;" data-am-modal="{target: '#select-mode'}">>>>选择其他模式</a>
+                当前排序模式：<span id="current-mode">最新上传(默认)</span> <a href="javascript:;" data-am-modal="{target: '#select-mode'}">>>>选择其他模式</a>
             </p>
         </section>
         <section id="upload" style="display: none">
@@ -202,6 +204,80 @@
                     <a class="am-btn am-btn-junxun" href="share.php?id={{$value.id}}" role="button"><i class="am-icon-share-alt"></i>分享</a>
                 </div>
             </div>
+            <div class="comment-box">
+                <article class="am-comment"> <!-- 评论容器 -->
+                    <a href="#link-to-user-home">
+                        <img src="tieba.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+                    </a>
+
+                    <div class="am-comment-main"> <!-- 评论内容容器 -->
+                        <header class="am-comment-hd">
+                            <!--<h3 class="am-comment-title">评论标题</h3>-->
+                            <div class="am-comment-meta"> <!-- 评论元数据 -->
+                                <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
+                                评论于 <time datetime="">...</time>
+                            </div>
+                        </header>
+
+                        <div class="am-comment-bd">...</div> <!-- 评论内容 -->
+                    </div>
+                </article>
+                <article class="am-comment"> <!-- 评论容器 -->
+                    <a href="#link-to-user-home">
+                        <img src="tieba.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+                    </a>
+                    <div class="am-comment-main"> <!-- 评论内容容器 -->
+                        <header class="am-comment-hd">
+                            <!--<h3 class="am-comment-title">评论标题</h3>-->
+                            <div class="am-comment-meta"> <!-- 评论元数据 -->
+                                <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
+                                评论于 <time datetime="">...</time>
+                            </div>
+                        </header>
+
+                        <div class="am-comment-bd">...</div> <!-- 评论内容 -->
+                    </div>
+                </article>
+
+                <div class="am-g" style="text-align: center">
+                    <div class="am-u-sm-6">
+                        <button type="button" class="am-btn am-btn-primary"><i class="am-icon-commenting"></i> 我要评论</button>
+                    </div>
+                    <div class="am-u-sm-6">
+                        <button type="button" class="am-btn am-btn-danger"><i class="am-icon-arrow-up"></i> 收起面板</button>
+                    </div>
+                </div>
+
+                <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
+
+
+                    <li class="am-pagination-prev ">
+                        <a href="#" class="">上一页</a>
+                    </li>
+
+
+                    <li class="am-pagination-select">
+                        <select>
+                            <option value="#" class="">1
+                                /
+                            </option>
+                            <option value="#" class="">2
+                                /
+                            </option>
+                            <option value="#" class="">3
+                                /
+                            </option>
+                        </select>
+                    </li>
+
+
+                    <li class="am-pagination-next ">
+                        <a href="#" class="">下一页</a>
+                    </li>
+
+                </ul>
+            </div>
+
         </div>
         {{/each}}
     </script>

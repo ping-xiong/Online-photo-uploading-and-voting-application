@@ -17,6 +17,24 @@ function switchMenu(target) {
 // 更改模式
 function switchMode(newMode) {
     current_mode = newMode;
+    var mode_name = "最新上传(默认)";
+    switch (current_mode) {
+        case 'default':
+            mode_name = "最新上传(默认)";
+            break;
+        case 'votes':
+            mode_name = "最多投票";
+            break;
+
+        case 'beauty':
+            mode_name = "最高颜值";
+            break;
+
+        case 'popular':
+            mode_name = "最高人气";
+            break;
+    }
+    $("#current-mode").text(mode_name);
     getPosts();
 }
 
@@ -111,6 +129,7 @@ function search() {
     });
 }
 
+// 投票
 function vote(id) {
     var data = {
         'api':"votes",
