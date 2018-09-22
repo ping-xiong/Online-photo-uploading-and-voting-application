@@ -346,6 +346,8 @@ function submitNewPost() {
             if (result.ret == 0){
                 layer.msg(result.msg);
                 resetAll();
+            }else{
+                layer.msg(result.msg);
             }
         });
     }

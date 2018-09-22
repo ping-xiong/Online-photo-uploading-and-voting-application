@@ -32,8 +32,8 @@
 
             </header>
             <div class="am-input-group" id="search-div">
-                <input type="text" class="am-form-field" placeholder="搜索名字">
-                <span class="am-input-group-btn">
+                <input type="text" id="keywords" class="am-form-field" placeholder="搜索名字">
+                <span class="am-input-group-btn" onclick="search()">
             <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
           </span>
             </div>
@@ -42,10 +42,10 @@
             </div>
             <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
                 <li class="am-pagination-prev ">
-                    <a href="javascript:;" class="">上一页</a>
+                    <a href="javascript:;" class="" onclick="previousPage()">上一页</a>
                 </li>
                 <li class="am-pagination-select">
-                    <select id="select-list">
+                    <select id="select-list" onchange="selectPages()">
                         <option value="" class="">1
                             /
                         </option>
@@ -58,7 +58,7 @@
                     </select>
                 </li>
                 <li class="am-pagination-next ">
-                    <a href="javascript:;" class="">下一页</a>
+                    <a href="javascript:;" class="" onclick="nextPage()">下一页</a>
                 </li>
             </ul>
             <p style="text-align: center; font-size: 14px; color: #777">
@@ -170,7 +170,12 @@
         <div class="card">
             <div class="card-img">
                 <div id="figure-{{$value.id}}" class="figure-div-box">
-
+                    <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">
+                        <img class="lazy" data-original="images/upload/{{$value.main_photo}}" data-rel="images/upload/{{$value.main_photo}}" alt="{{$value.title}}"/>
+                        {{each $value.second_photo val key}}
+                            <img class="lazy" style="display: none" data-original="images/upload/{{val.name}}" data-rel="images/upload/{{val.name}}" alt="{{$value.title}}"/>
+                        {{/each}}
+                    </figure>
                 </div>
                 <div class="am-g card-img-info">
                     <div class="am-u-sm-4">
@@ -202,12 +207,7 @@
         {{/each}}
     </script>
 
-    <!--                <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">-->
-    <!--                    <img class="lazy" data-original="images/upload/{{$value.main_photo}}" data-rel="images/upload/{{$value.main_photo}}" alt="{{$value.title}}"/>-->
-    <!--                    {{each $value.second_photo val key}}-->
-    <!--                        <img class="lazy" style="display: none" data-original="images/upload/{{val.name}}" data-rel="images/upload/{{val.name}}" alt="{{$value.title}}"/>-->
-    <!--                    {{/each}}-->
-    <!--                </figure>-->
+
 
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -215,14 +215,11 @@
     <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
     <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.widgets.helper.js"></script>
     <script src="js/lib/template-web.js"></script>
     <script src="js/lib/lazyload.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
     <script>
-        // $(".lazy").lazyload();
         getPosts();
         getPages();
     </script>

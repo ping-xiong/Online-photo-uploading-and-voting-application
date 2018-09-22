@@ -14,6 +14,11 @@ class homepage
         $this->link = $newLink;
     }
 
+    /**
+     * @param $mode
+     * @param $page
+     * @param $max_posts_each_page
+     */
     public function getPosts($mode, $page, $max_posts_each_page){
         $start = ($page-1)*$max_posts_each_page;
         $sql = "SELECT * FROM `junxun_photo` WHERE `is_check` = 1 ORDER BY time DESC LIMIT {$start},{$max_posts_each_page}";
@@ -35,6 +40,14 @@ class homepage
                 break;
         }
 
+        $result = mysqli_query($this->link, $sql);
+        $this->output($result);
+    }
+
+
+    // 搜索
+    public function search($keywords){
+        $sql = "SELECT * FROM `junxun_photo` WHERE `is_check` = 1 AND `title` LIKE '%{$keywords}%' ORDER BY time DESC";
         $result = mysqli_query($this->link, $sql);
         $this->output($result);
     }

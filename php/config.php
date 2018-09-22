@@ -17,6 +17,6 @@ class config
 
     public static $homepage = [
         "max_upload_post"=>5, // session有效期内最多上传次数
-        "max_posts_each_page"=>20 // 每页的个数
+        "max_posts_each_page"=>10 // 每页的个数
     ];
 }

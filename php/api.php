@@ -60,6 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode($final);
             break;
         case 'submit':
+
+            if (isset($_SESSION['max_upload_posts']) && $_SESSION['max_upload_posts'] > 5){
+                $ret = [
+                    "ret"=>1,
+                    "msg"=>"您在今天发布已超过限制，请明天再来"
+                ];
+                echo json_encode($ret);
+                die();
+            }
+
             $title = $db->test_input($_POST['title']);
             $say = $db->test_input($_POST['say']);
             $main_picture = $db->test_input($_POST['main_picture']);
@@ -129,6 +139,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "total_pages"=>$total_pages
             ];
             echo json_encode($data);
+            break;
+        case 'search':
+            // 搜索
+            include_once "homepage.php";
+            $homepage = new homepage($db->link);
+            $keywords = $db->test_input($_POST['keywords']);
+            $homepage->search($keywords);
             break;
     }
 

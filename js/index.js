@@ -1,5 +1,6 @@
 var current_mode = "default";
 var current_page = 1;
+var max_pages = 1;
 
 function hide_all() {
     $("#homepage").css("display", "none");
@@ -27,8 +28,10 @@ function getPages() {
     $("#select-list").html("");
     submit_ajax(data, function (result) {
         for (var i= 0; i < result.total_pages; i++){
-            $("#select-list").html('<option value="'+(i+1)+'" class="">'+(i+1)+' / '+result.total_pages+'</option>');
+            $("<option>").attr('value', i+1).text((i+1)+' / '+result.total_pages).appendTo("#select-list");
+            // $("#select-list").html('<option value="'+(i+1)+'" class="">'+(i+1)+' / '+result.total_pages+'</option>');
         }
+        max_pages = result.total_pages;
     });
 }
 
@@ -45,66 +48,58 @@ function getPosts() {
     });
 }
 
-
 // 渲染
 function renderPosts(result) {
-
     var html = template("post-tpl",result);
     document.getElementById("card-box").innerHTML=html;
-
-    // 渲染组件
-    var Amaze_template = Handlebars.compile('{{>figure}}');
-    var data = {
-            accordionData: {
-                "className": "figure-item",
-                "options": {
-                    "figcaptionPosition": "bottom", // 图标标题位置 top - 图片上方， bottom - 图片下方
-                    "zoomble": 'auto' // 是否启用图片缩放功能 ['auto'|true|false]
-                    // 'auto' - 根据图片宽度自动判断，图大宽度大于窗口宽度时开启，否则不开启
-                    // false 不开启；其他转型后非 false 的值，开启
-                    // 此选项会作为 pureview 选项值 data-am-figure="{pureview: {{zoomable}} }"
-                },
-                "content": [
-                    {
-                        "img": "", // 图片（缩略图）路径
-                        "rel": "", // 大图路径
-                        "imgAlt": "", // 图片alt描述，如果为空则读取 figcaption
-                        "figcaption": "" // 图片标题
-                    }
-                ]
-            }
-        };
-
-    for (var i = 0; i < result.length; i++){
-        var post_id = result[i].id;
-        data.accordionData.content = [];
-        var sub_content = {
-            "img": "images/upload/"+result[i].main_photo, // 图片（缩略图）路径
-            "rel": "images/upload/"+result[i].main_photo, // 大图路径
-            "imgAlt": result[i].title, // 图片alt描述，如果为空则读取 figcaption
-            "figcaption": result[i].title // 图片标题
-        };
-        data.accordionData.content.push(sub_content);
-
-        if (result[i].second_photo.length > 0){
-            for (var y = 0; y < result[i].second_photo.length; y++) {
-                sub_content = {
-                    "img": "images/upload/"+result[i].second_photo[y].name, // 图片（缩略图）路径
-                    "rel": "images/upload/"+result[i].second_photo[y].name, // 大图路径
-                    "imgAlt": result[i].title, // 图片alt描述，如果为空则读取 figcaption
-                    "figcaption": result[i].title // 图片标题
-                };
-                data.accordionData.content.push(sub_content);
-            }
-        }
-        console.log(data);
-        var widget_html = Amaze_template(data.accordionData);
-        $("#figure-"+post_id).html(widget_html);
-        console.log(widget_html);
-    }
-
+    AMUI.figure.init();
     // 懒性加载
     $(".lazy").lazyload();
 }
 
 
+// 下一页
+function nextPage() {
+    if (current_page < max_pages){
+        current_page++;
+        getPosts();
+        updateSelectPages();
+    } else{
+        layer.msg("后面没有咯");
+    }
+}
+
+// 上一页
+function previousPage() {
+    if (current_page > 1){
+        current_page--;
+        getPosts();
+        updateSelectPages();
+    } else{
+        layer.msg("前面没有咯");
+    }
+}
+
+// 更新当前选择
+function updateSelectPages() {
+    $("#select-list").val(current_page);
+}
+
+// 下拉选择页数
+function selectPages() {
+    current_page = $("#select-list").val();
+    getPosts();
+}
+
+// 搜索
+function search() {
+    var keywords = $("#keywords").val();
+    var data = {
+        'api':'search',
+        'keywords':keywords
+    };
+    submit_ajax(data, function (result) {
+        layer.msg("搜索完成");
+        renderPosts(result);
+    });
+}
