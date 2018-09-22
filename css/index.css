@@ -69,6 +69,7 @@ main{
     width: 90%;
     height: auto;
     margin: 0 auto;
+    margin-bottom: 30px;
 }
 .card-img-tag img{
     max-width: 400px;
@@ -137,7 +138,7 @@ body > main > div > div.card-img figure{
     border-color: #ffffff;
 }
 
-#homepage > div > div.card-img figure{
+#card-box > div > div.card-img figure{
     margin: 0 !important;
 }
 

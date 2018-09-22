@@ -85,8 +85,8 @@ var uploader = new plupload.Uploader({
                 // console.log(result);
                 if (result.ret == 0){
                     layer.msg('分析成功');
-                    $("#card-img-beauty-value").text(result.beauty);
-                    $("#card-img-smile-value").text(result.smile);
+                    $("#card-img-beauty-value").text(result.beauty+"/100分");
+                    $("#card-img-smile-value").text(result.smile+"/100分");
                     $("#card-img-people-value").text(result.people);
                     isAnalysis = 1;
                 } else{
@@ -122,8 +122,8 @@ document.getElementById('detectFace').onclick = function () {
         // console.log(result);
         if (result.ret == 0){
             layer.msg('分析成功');
-            $("#card-img-beauty-value").text(result.beauty);
-            $("#card-img-smile-value").text(result.smile);
+            $("#card-img-beauty-value").text(result.beauty+"/100分");
+            $("#card-img-smile-value").text(result.smile+"/100分");
             $("#card-img-people-value").text(result.people);
             isAnalysis = 1;
         } else{

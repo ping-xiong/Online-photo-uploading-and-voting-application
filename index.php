@@ -37,39 +37,33 @@
             <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
           </span>
             </div>
-            <div class="card">
-                <div class="card-img">
-                    <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">
-                        <img src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
-                        <img style="display: none" src="images/test.jpg" data-rel="images/test.jpg" alt="春天的花开秋天的风以及冬天的落阳"/>
-                    </figure>
-                    <div class="am-g card-img-info">
-                        <div class="am-u-sm-4">
-                            <p class="card-img-beauty"><i class="am-icon-eye"></i> 颜值：</p>
-                        </div>
-                        <div class="am-u-sm-4">
-                            <p class="card-img-hot"><i class="am-icon-smile-o"></i> 笑容：</p>
-                        </div>
-                        <div class="am-u-sm-4">
-                            <p class="card-img-hot"><i class="am-icon-fire"></i> 人气：</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="tags">
-                    <span class="am-badge am-badge-warning am-text-sm img-num">2图</span>
-                </div>
-                <div class="card-desc">
-                    <p class="card-name">1. 小明 <span class="votes">(100票)</span></p>
-                    <p class="card-say">测试测试测试测试测试</p>
-                </div>
-                <div class="card-btn-group">
-                    <div class="am-btn-group am-btn-group-justify">
-                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-check-square-o"></i>投票</a>
-                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-th-list"></i>评论</a>
-                        <a class="am-btn am-btn-junxun" role="button"><i class="am-icon-share-alt"></i>分享</a>
-                    </div>
-                </div>
+            <div id="card-box">
+
             </div>
+            <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
+                <li class="am-pagination-prev ">
+                    <a href="javascript:;" class="">上一页</a>
+                </li>
+                <li class="am-pagination-select">
+                    <select id="select-list">
+                        <option value="" class="">1
+                            /
+                        </option>
+                        <option value="" class="">2
+                            /
+                        </option>
+                        <option value="" class="">3
+                            /
+                        </option>
+                    </select>
+                </li>
+                <li class="am-pagination-next ">
+                    <a href="javascript:;" class="">下一页</a>
+                </li>
+            </ul>
+            <p style="text-align: center; font-size: 14px; color: #777">
+                当前排序模式：最新上传(默认) <a href="javascript:;" data-am-modal="{target: '#select-mode'}">>>>选择其他模式</a>
+            </p>
         </section>
         <section id="upload" style="display: none">
             <div class="am-form-group">
@@ -154,13 +148,83 @@
         </div>
     </footer>
 
+
+    <div class="am-modal-actions" id="select-mode" style="display: none;">
+        <div class="am-modal-actions-group">
+            <ul class="am-list">
+                <li><a href="#" onclick="switchMode('default')"><i class="am-icon-cloud-upload"></i> 最新上传(默认)</a></li>
+                <li><a href="#" onclick="switchMode('votes')"><i class="am-icon-line-chart"></i> 最多投票</a></li>
+                <li><a href="#" onclick="switchMode('beauty')"><i class="am-icon-eye"></i> 最高颜值</a></li>
+                <li><a href="#" onclick="switchMode('popular')"><i class="am-icon-fire"></i> 最高人气</a></li>
+            </ul>
+        </div>
+        <div class="am-modal-actions-group">
+            <button class="am-btn am-btn-secondary am-btn-block" data-am-modal-close>取消</button>
+        </div>
+    </div>
+
+
+
+    <script id="post-tpl" type="text/html">
+        {{each}}
+        <div class="card">
+            <div class="card-img">
+                <div id="figure-{{$value.id}}" class="figure-div-box">
+
+                </div>
+                <div class="am-g card-img-info">
+                    <div class="am-u-sm-4">
+                        <p class="card-img-beauty"><i class="am-icon-eye"></i>颜值：{{$value.beauty}}</p>
+                    </div>
+                    <div class="am-u-sm-4">
+                        <p class="card-img-hot"><i class="am-icon-smile-o"></i>笑容：{{$value.smile}}</p>
+                    </div>
+                    <div class="am-u-sm-4">
+                        <p class="card-img-hot"><i class="am-icon-fire"></i>人气：{{$value.popular}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tags">
+                <span class="am-badge am-badge-warning am-text-sm img-num">{{$value.total_second_photo}}图</span>
+            </div>
+            <div class="card-desc">
+                <p class="card-name">{{$value.id}}. {{$value.title}} <span class="votes">({{$value.votes}}票)</span></p>
+                <p class="card-say">{{$value.say}}</p>
+            </div>
+            <div class="card-btn-group">
+                <div class="am-btn-group am-btn-group-justify">
+                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="vote({{$value.id}})" role="button"><i class="am-icon-check-square-o"></i>投票</a>
+                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="comment({{$value.id}})" role="button"><i class="am-icon-th-list"></i>评论</a>
+                    <a class="am-btn am-btn-junxun" href="share.php?id={{$value.id}}" role="button"><i class="am-icon-share-alt"></i>分享</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
+    <!--                <figure data-am-widget="figure" class="am am-figure card-img-tag" data-am-figure="{  pureview: 'true' }">-->
+    <!--                    <img class="lazy" data-original="images/upload/{{$value.main_photo}}" data-rel="images/upload/{{$value.main_photo}}" alt="{{$value.title}}"/>-->
+    <!--                    {{each $value.second_photo val key}}-->
+    <!--                        <img class="lazy" style="display: none" data-original="images/upload/{{val.name}}" data-rel="images/upload/{{val.name}}" alt="{{$value.title}}"/>-->
+    <!--                    {{/each}}-->
+    <!--                </figure>-->
+
+
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
     <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.widgets.helper.js"></script>
     <script src="js/lib/template-web.js"></script>
+    <script src="js/lib/lazyload.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
+    <script>
+        // $(".lazy").lazyload();
+        getPosts();
+        getPages();
+    </script>
 </body>
 </html>

@@ -14,4 +14,9 @@ class config
         "api"=>"https://api.ai.qq.com/fcgi-bin/face/face_detectface",
         "img_path"=>"../images/upload/"
     ];
+
+    public static $homepage = [
+        "max_upload_post"=>5, // session有效期内最多上传次数
+        "max_posts_each_page"=>20 // 每页的个数
+    ];
 }

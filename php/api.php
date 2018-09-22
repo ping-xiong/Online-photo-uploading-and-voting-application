@@ -8,6 +8,10 @@
 
 session_start();
 
+if (!isset($_SESSION['max_upload_posts'])){
+    $_SESSION['max_upload_posts'] = 0;
+}
+
 include_once 'connect.php';
 include_once "DetectFace.php";
 include_once "config.php";
@@ -59,18 +63,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $title = $db->test_input($_POST['title']);
             $say = $db->test_input($_POST['say']);
             $main_picture = $db->test_input($_POST['main_picture']);
+            if (isset($_SESSION['beauty'])){
+                $beauty = $_SESSION['beauty'];
+            }else{
+                $beauty = 0;
+            }
+            if (isset($_SESSION['smile'])){
+                $smile = $_SESSION['smile'];
+            }else{
+                $smile =0;
+            }
 
-            $beauty = $_SESSION['beauty'];
-            $smile = $_SESSION['smile'];
             $ip = $db->getIP();
 
-//            var_dump($_POST);
-
             $sql = "INSERT INTO `junxun_photo`(`title`, `main_photo`, `say`, `beauty`, `smile`, `ip`) VALUES ('{$title}', '{$main_picture}', '{$say}', {$beauty}, {$smile}, '{$ip}')";
-//            echo $sql;
             mysqli_query($db->link, $sql);
-
-//            echo mysqli_error($db->link);
 
             $insert_id = mysqli_insert_id($db->link);
             if (isset($_POST['second_pictures'])){
@@ -88,11 +95,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['beauty'] = 0;
             $_SESSION['smile'] = 0;
 
+            // 加1
+            $_SESSION['max_upload_posts'] += 1;
+
             $ret = [
                 "ret"=>0,
                 "msg"=>"提交成功"
             ];
             echo json_encode($ret);
+            break;
+        case 'homepage':
+            // 浏览数据
+            include_once "homepage.php";
+            $homepage = new homepage($db->link);
+            $mode = $db->test_input($_POST['mode']);
+            $page = $db->test_input($_POST['page']);
+            $max_posts_each_page = config::$homepage['max_posts_each_page'];
+
+            $homepage->getPosts($mode, $page, $max_posts_each_page);
+
+            break;
+        case 'pages':
+            // 获取页数
+            $sql = "SELECT COUNT(*) as total FROM `junxun_photo` WHERE `is_check` = 1";
+            $result = mysqli_query($db->link, $sql);
+            $row = mysqli_fetch_assoc($result);
+            // 总个数
+            $total = $row['total'];
+            // 总页数
+            $total_pages = ceil($total/config::$homepage['max_posts_each_page']);
+            $data = [
+                "total"=>$total,
+                "total_pages"=>$total_pages
+            ];
+            echo json_encode($data);
             break;
     }
 
