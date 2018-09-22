@@ -204,81 +204,56 @@
                     <a class="am-btn am-btn-junxun" href="share.php?id={{$value.id}}" role="button"><i class="am-icon-share-alt"></i>分享</a>
                 </div>
             </div>
-            <div class="comment-box">
-                <article class="am-comment"> <!-- 评论容器 -->
-                    <a href="#link-to-user-home">
-                        <img src="tieba.png" alt="" class="am-comment-avatar" width="48" height="48"/>
-                    </a>
+            <div class="comment-box" id="comment-box-{{$value.id}}">
 
-                    <div class="am-comment-main"> <!-- 评论内容容器 -->
-                        <header class="am-comment-hd">
-                            <!--<h3 class="am-comment-title">评论标题</h3>-->
-                            <div class="am-comment-meta"> <!-- 评论元数据 -->
-                                <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
-                                评论于 <time datetime="">...</time>
-                            </div>
-                        </header>
-
-                        <div class="am-comment-bd">...</div> <!-- 评论内容 -->
-                    </div>
-                </article>
-                <article class="am-comment"> <!-- 评论容器 -->
-                    <a href="#link-to-user-home">
-                        <img src="tieba.png" alt="" class="am-comment-avatar" width="48" height="48"/>
-                    </a>
-                    <div class="am-comment-main"> <!-- 评论内容容器 -->
-                        <header class="am-comment-hd">
-                            <!--<h3 class="am-comment-title">评论标题</h3>-->
-                            <div class="am-comment-meta"> <!-- 评论元数据 -->
-                                <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
-                                评论于 <time datetime="">...</time>
-                            </div>
-                        </header>
-
-                        <div class="am-comment-bd">...</div> <!-- 评论内容 -->
-                    </div>
-                </article>
-
-                <div class="am-g" style="text-align: center">
-                    <div class="am-u-sm-6">
-                        <button type="button" class="am-btn am-btn-primary"><i class="am-icon-commenting"></i> 我要评论</button>
-                    </div>
-                    <div class="am-u-sm-6">
-                        <button type="button" class="am-btn am-btn-danger"><i class="am-icon-arrow-up"></i> 收起面板</button>
-                    </div>
-                </div>
-
-                <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
-
-
-                    <li class="am-pagination-prev ">
-                        <a href="#" class="">上一页</a>
-                    </li>
-
-
-                    <li class="am-pagination-select">
-                        <select>
-                            <option value="#" class="">1
-                                /
-                            </option>
-                            <option value="#" class="">2
-                                /
-                            </option>
-                            <option value="#" class="">3
-                                /
-                            </option>
-                        </select>
-                    </li>
-
-
-                    <li class="am-pagination-next ">
-                        <a href="#" class="">下一页</a>
-                    </li>
-
-                </ul>
             </div>
+            <div class="am-g" style="text-align: center">
+                <div class="am-u-sm-6">
+                    <button type="button" class="am-btn am-btn-primary" onclick="startComment({{$value.id}})"><i class="am-icon-commenting"></i> 我要评论</button>
+                </div>
+                <div class="am-u-sm-6">
+                    <button type="button" class="am-btn am-btn-danger" onclick="closeCommentUI({{$value.id}})"><i class="am-icon-arrow-up"></i> 收起面板</button>
+                </div>
+            </div>
+            <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
+                <li class="am-pagination-prev " onclick="CommentPrevPage({{$value.id}})">
+                    <a href="#" class="">上一页</a>
+                </li>
+                <li class="am-pagination-select">
+                    <select id="comment-select-page-{{$value.id}}" onchange="CommentSelectPage({{$value.id}})">
+                        <option value="#" class="">1
+                            /
+                        </option>
+                    </select>
+                </li>
+                <li class="am-pagination-next " onclick="CommentNextPage({{$value.id}})">
+                    <a href="#" class="">下一页</a>
+                </li>
+            </ul>
 
         </div>
+        {{/each}}
+    </script>
+
+
+    <script id="comment-tpl" type="text/html">
+        {{each}}
+        <article class="am-comment">
+            <a href="#link-to-user-home">
+                <img src="tieba.png" alt="" class="am-comment-avatar" width="48" height="48"/>
+            </a>
+
+            <div class="am-comment-main"> <!-- 评论内容容器 -->
+                <header class="am-comment-hd">
+                    <div class="am-comment-meta"> <!-- 评论元数据 -->
+                        <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
+                        评论于 <time datetime="">...</time>
+                    </div>
+                </header>
+
+                <div class="am-comment-bd">...</div> <!-- 评论内容 -->
+            </div>
+        </article>
         {{/each}}
     </script>
 
