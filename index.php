@@ -83,9 +83,9 @@
                             <p style="text-align: left"><i class="am-icon-eye"></i> 颜值：<span id="card-img-beauty-value">等待分析</span></p>
                             <p style="text-align: left"><i class="am-icon-smile-o"></i> 笑容：<span id="card-img-smile-value">等待分析</span></p>
                             <p style="text-align: left"><i class="am-icon-hashtag"></i> 人数：<span id="card-img-people-value">等待分析</span></p>
-                            <p class="hint">注：AI分析结果仅供参考；无需分析结果也可提交；多人分析结果为平均颜值</p>
                         </div>
                     </div>
+                    <p class="hint">注：AI分析结果仅供参考；<br>无需分析结果也可提交；点击图片重新选择；</p>
                 </div>
             </div>
             <button class="am-btn am-btn-default" id="detectFace" style="display: none">
@@ -194,42 +194,44 @@
                 <span class="am-badge am-badge-warning am-text-sm img-num">{{$value.total_second_photo}}图</span>
             </div>
             <div class="card-desc">
-                <p class="card-name">{{$value.id}}. {{$value.title}} <span class="votes">( {{$value.votes}}票 )</span></p>
+                <p class="card-name">{{$value.id}}. {{$value.title}} <span class="votes" votes="{{$value.votes}}" id="show-votes-text-{{$value.id}}">( {{$value.votes}}票 )</span></p>
                 <p class="card-say">{{$value.say}}</p>
             </div>
             <div class="card-btn-group">
                 <div class="am-btn-group am-btn-group-justify">
-                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="vote({{$value.id}})" role="button"><i class="am-icon-check-square-o"></i>{{$value.votes_text}}</a>
-                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="comment({{$value.id}})" role="button"><i class="am-icon-th-list"></i>评论</a>
+                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="vote({{$value.id}})" id="vote-btn-{{$value.id}}" role="button"><i class="am-icon-check-square-o"></i>{{$value.votes_text}}</a>
+                    <a class="am-btn am-btn-junxun" href="javascript:;" id="comment-btn-{{$value.id}}" onclick="comment({{$value.id}})" role="button"><i class="am-icon-th-list"></i>{{$value.total_comment}} 评论</a>
                     <a class="am-btn am-btn-junxun" href="share.php?id={{$value.id}}" role="button"><i class="am-icon-share-alt"></i>分享</a>
                 </div>
             </div>
-            <div class="comment-box" id="comment-box-{{$value.id}}">
-
+            <div id="card-comment-{{$value.id}}" style="display: none">
+                    <div class="comment-box" id="comment-box-{{$value.id}}" >
+                        <p class="comment-hint">目前没有评论！快来抢沙发吧！</p>
+                    </div>
+                    <div class="am-g" style="text-align: center">
+                        <div class="am-u-sm-6">
+                            <button type="button" class="am-btn am-btn-primary" onclick="startComment({{$value.id}})"><i class="am-icon-commenting"></i> 我要评论</button>
+                        </div>
+                        <div class="am-u-sm-6">
+                            <button type="button" class="am-btn am-btn-danger" onclick="closeCommentUI({{$value.id}})"><i class="am-icon-arrow-up"></i> 收起面板</button>
+                        </div>
+                    </div>
+                    <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
+                        <li class="am-pagination-prev " onclick="CommentPrevPage({{$value.id}})">
+                            <a href="javascript:;" class="">上一页</a>
+                        </li>
+                        <li class="am-pagination-select">
+                            <select id="comment-select-page-{{$value.id}}" max-pages="0" onchange="CommentSelectPage({{$value.id}})">
+                                <option value="1" class="">1
+                                    /
+                                </option>
+                            </select>
+                        </li>
+                        <li class="am-pagination-next " onclick="CommentNextPage({{$value.id}})">
+                            <a href="javascript:;" class="">下一页</a>
+                        </li>
+                    </ul>
             </div>
-            <div class="am-g" style="text-align: center">
-                <div class="am-u-sm-6">
-                    <button type="button" class="am-btn am-btn-primary" onclick="startComment({{$value.id}})"><i class="am-icon-commenting"></i> 我要评论</button>
-                </div>
-                <div class="am-u-sm-6">
-                    <button type="button" class="am-btn am-btn-danger" onclick="closeCommentUI({{$value.id}})"><i class="am-icon-arrow-up"></i> 收起面板</button>
-                </div>
-            </div>
-            <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
-                <li class="am-pagination-prev " onclick="CommentPrevPage({{$value.id}})">
-                    <a href="#" class="">上一页</a>
-                </li>
-                <li class="am-pagination-select">
-                    <select id="comment-select-page-{{$value.id}}" onchange="CommentSelectPage({{$value.id}})">
-                        <option value="#" class="">1
-                            /
-                        </option>
-                    </select>
-                </li>
-                <li class="am-pagination-next " onclick="CommentNextPage({{$value.id}})">
-                    <a href="#" class="">下一页</a>
-                </li>
-            </ul>
 
         </div>
         {{/each}}
@@ -246,22 +248,41 @@
             <div class="am-comment-main"> <!-- 评论内容容器 -->
                 <header class="am-comment-hd">
                     <div class="am-comment-meta"> <!-- 评论元数据 -->
-                        <a href="#link-to-user" class="am-comment-author">..</a> <!-- 评论者 -->
-                        评论于 <time datetime="">...</time>
+                        <a href="#link-to-user" class="am-comment-author">{{$value.name}}</a> <!-- 评论者 -->
+                        评论于 <time datetime="">{{$value.time}}</time>
                     </div>
                 </header>
 
-                <div class="am-comment-bd">...</div> <!-- 评论内容 -->
+                <div class="am-comment-bd">{{$value.say}}</div> <!-- 评论内容 -->
             </div>
         </article>
         {{/each}}
     </script>
+
+
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="comment-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">评论</div>
+            <div class="am-modal-bd">
+                <label for="comment-name">留个名字</label>
+                <input type="text" class="am-modal-prompt-input" id="comment-name">
+                <br>
+                <label for="comment-say">说点什么</label>
+                <input type="text" class="am-modal-prompt-input" id="comment-say">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
     <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
     <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
     <script src="js/lib/template-web.js"></script>
     <script src="js/lib/lazyload.min.js"></script>
     <script src="js/index.js"></script>

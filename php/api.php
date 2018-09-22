@@ -47,15 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $people++;
                 }
                 $avg_beauty = number_format($beauty/$people, 2);
-                $avg_smile = number_format($beauty/$smile, 2);
+                $avg_smile = number_format($smile/$people, 2);
                 $final = [
                     "ret"=>$data->ret,
-                    "beauty"=>$beauty,
-                    "smile"=>$smile,
+                    "beauty"=>$avg_beauty,
+                    "smile"=>$avg_smile,
                     "people"=>$people
                 ];
-                $_SESSION['beauty'] = $beauty;
-                $_SESSION['smile'] = $smile;
+                $_SESSION['beauty'] = $avg_beauty;
+                $_SESSION['smile'] = $avg_smile;
             }else{
                 $_SESSION['beauty'] = 0;
                 $_SESSION['smile'] = 0;
@@ -158,6 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $post_id = $db->test_input($_POST['post_id']);
             $ip = $db->getIP();
 
+            addPopular($db->link, $post_id);
 
             if (in_array($post_id, $_SESSION['votes'])){
                 $ret = [
@@ -188,6 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $page = $db->test_input($_POST['page']);
             $comment->getComments($post_id, $page);
 
+            addPopular($db->link, $post_id);
             break;
         case 'comment':
             // 评论
@@ -198,6 +200,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $say = $db->test_input($_POST['say']);
             $ip = $db->getIP();
             $comment->submitComment($post_id, $name, $say, $ip);
+
+            addPopular($db->link, $post_id);
             break;
         case 'getCommentPage':
             // 获取评论页数
@@ -205,9 +209,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $comment = new comment($db->link);
             $post_id = $db->test_input($_POST['post_id']);
             $comment->getCommentPages($post_id);
+
+            addPopular($db->link, $post_id);
             break;
     }
 
 }else{
     echo "提交成功";
+}
+
+
+// 加人气
+function addPopular($link, $post_id){
+    $sql = "UPDATE `junxun_photo` SET `popular`=`popular`+1 WHERE `id` = {$post_id}";
+    mysqli_query($link, $sql);
 }

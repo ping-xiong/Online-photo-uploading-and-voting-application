@@ -32,9 +32,10 @@ class comment
         $comments_arr = [];
         $count = 0;
         while ($row = mysqli_fetch_assoc($result)){
-            $comments_arr[$count]['name'] = $result['name'];
-            $comments_arr[$count]['say'] = $result['say'];
-            $comments_arr[$count]['time'] = $result['time'];
+            $comments_arr[$count]['name'] = $row['name'];
+            $comments_arr[$count]['say'] = $row['say'];
+            $comments_arr[$count]['time'] = $row['time'];
+            $count++;
         }
 
         echo json_encode($comments_arr);

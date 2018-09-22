@@ -1,6 +1,7 @@
 var current_mode = "default";
 var current_page = 1;
 var max_pages = 1;
+var commentPages = []; // 记录评论的页数
 
 function hide_all() {
     $("#homepage").css("display", "none");
@@ -11,6 +12,10 @@ function hide_all() {
 function switchMenu(target) {
     hide_all();
     $("#"+target).css("display", "block");
+    $('html, body').animate({scrollTop: 0}, '500');
+    if (target == "homepage"){
+        getPosts();
+    }
 }
 
 
@@ -137,9 +142,157 @@ function vote(id) {
     };
     submit_ajax(data, function (result) {
         if (result.ret == 0) {
-
+            layer.msg(result.msg);
+            var target_vote_ele = $("#show-votes-text-"+id);
+            var currentVotes = parseInt(target_vote_ele.attr("votes"));
+            currentVotes++;
+            target_vote_ele.text("( "+currentVotes+"票 )");
+            $("#vote-btn-"+id).html('<i class="am-icon-check-square-o"></i>已投');
         }else{
             layer.msg(result.msg);
+        }
+    });
+}
+
+// 打开评论窗口
+function comment(post_id) {
+    // $("#card-comment-"+post_id).toggle(500);
+    $("#card-comment-"+post_id).slideDown();
+    $("#comment-btn-"+post_id).attr("onclick", "closeComment("+post_id+")");
+    $.scrollTo('#comment-box-'+post_id,500);
+    getCommentPages(post_id);
+    getComments(post_id, 1);
+}
+
+function closeComment(post_id) {
+    $("#comment-btn-"+post_id).attr("onclick", "comment("+post_id+")");
+    $("#card-comment-"+post_id).slideUp();
+    $.scrollTo('#figure-'+post_id,500);
+}
+
+
+// 关闭评论窗口
+function closeCommentUI(post_id) {
+    $("#card-comment-"+post_id).slideUp();
+    $("#comment-btn-"+post_id).attr("onclick", "comment("+post_id+")");
+    $.scrollTo('#figure-'+post_id,500);
+}
+
+// 获取评论页数
+function getCommentPages(post_id) {
+    var data = {
+        'api':"getCommentPage",
+        'post_id':post_id
+    };
+    submit_ajax(data, function (result) {
+        // 渲染选项
+        var comment_select_page = $("#comment-select-page-"+post_id);
+        comment_select_page.html("");
+        for (var i=0; i < result.total_pages; i++){
+            $("<option>").attr('value', (i+1)).text((i+1)+"/"+result.total_pages).appendTo("#comment-select-page-"+post_id);
+        }
+        comment_select_page.attr("max-pages", result.total_pages);
+    });
+}
+
+// 获取评论
+function getComments(id, page) {
+    var data = {
+        'api':"getComments",
+        'post_id':id,
+        'page':page
+    };
+    submit_ajax(data, function (result) {
+        var html = template("comment-tpl",result);
+        if (result.length == 0){
+
+        } else{
+            document.getElementById("comment-box-"+id).innerHTML=html;
+            // $.scrollTo('#comment-box-'+id,500);
+        }
+    });
+}
+
+// 获取评论当前页数
+function getCurrentCommentPage(id) {
+    return $("#comment-select-page-"+id).val();
+}
+// 记录评论当前页数
+function setCurrentCommentPage(id, page) {
+    $("#comment-select-page-"+id).val(page);
+}
+// 获取总页数
+function getTotalCommentPages(id) {
+    return $("#comment-select-page-"+id).attr("max-pages");
+}
+
+// 上一页
+function CommentPrevPage(id) {
+    var cPage = getCurrentCommentPage(id);
+    if (cPage > 1){
+        cPage--;
+        getComments(id, cPage);
+        setCurrentCommentPage(id, cPage);
+        $.scrollTo('#comment-box-'+id,500);
+    } else{
+        layer.msg("前面没有咯");
+    }
+}
+
+// 下一页
+function CommentNextPage(id) {
+    var cPage = getCurrentCommentPage(id);
+    var total_pages = getTotalCommentPages(id);
+    if (cPage < total_pages){
+        cPage++;
+        getComments(id, cPage);
+        setCurrentCommentPage(id, cPage);
+        $.scrollTo('#comment-box-'+id,500);
+    } else{
+        layer.msg("后面没有咯");
+    }
+}
+
+// 评论选择页数
+function CommentSelectPage(id) {
+    var cPage = getCurrentCommentPage(id);
+    getComments(id, cPage);
+    setCurrentCommentPage(id, cPage);
+}
+
+// 弹出评论框
+function startComment(id) {
+    $('#comment-modal').modal({
+        relatedTarget: this,
+        onConfirm: function(e) {
+            if (e.data[1] == ""){
+                // 为空
+                layer.msg("评论内容不能为空哦");
+            } else{
+                var name = e.data[0];
+                var say = e.data[1];
+                var data = {
+                  'api':'comment',
+                    'post_id':id,
+                    'name':name,
+                    'say':say
+                };
+                submit_ajax(data, function (result) {
+                    if (result.ret == 0){
+                        layer.msg(result.msg);
+                        getComments(id, 1);
+                    } else{
+                        layer.msg("评论失败，请重试")
+                    }
+                });
+
+                $("#comment-name").val("");
+                $("#comment-say").val("");
+            }
+        },
+        onCancel: function(e) {
+            $("#comment-name").val("");
+            $("#comment-say").val("");
         }
     });
 }

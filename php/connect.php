@@ -3,6 +3,9 @@
 	/**
 	 * 数据库连接类
 	 */
+
+	include_once "config.php";
+
 	class connectDataBase
 	{
 		// public $ip = "";
@@ -12,10 +15,10 @@
 		public $link = "";
 		function __construct()
 		{
-			 $host = '127.0.0.1';
-			 $user = 'root';
-			 $pass = '';
-			 $db_name = 'junxun';
+			 $host = config::$mysql['host'];
+			 $user = config::$mysql['user'];
+			 $pass = config::$mysql['pass'];
+			 $db_name = config::$mysql['db_name'];
 			 $timezone="Asia/Shanghai";
 
 			if ($link = mysqli_connect($host,$user,$pass)) {

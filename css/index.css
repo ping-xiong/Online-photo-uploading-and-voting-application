@@ -13,7 +13,7 @@ header#header-background{
     height: 300px;
     width: 100%;
     background-image: url("../images/header.jpg");
-    background-size: contain;
+    background-size: 100%;
     /*background-position: top;*/
     background-attachment: fixed;
     background-repeat: repeat-y;
@@ -152,6 +152,20 @@ body > main > div > div.card-img figure{
     font-style: italic;
 }
 
+.card-img-info .am-u-sm-4{
+    padding-right: 0 !important;
+    padding-left: 2px !important;
+}
+
+@media screen and (max-width: 300px) {
+    .card-img-beauty, .card-img-hot{
+        color: #CDDC39;
+        text-shadow: 1px 1px 1px #33691E;
+    }
+}
+
+
+
 /* 卡片样式结束 */
 
 
@@ -239,4 +253,9 @@ body > main > div > div.card-img figure{
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
+}
+
+.comment-hint{
+    text-align: center;
+    margin: 20px;
 }

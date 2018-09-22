@@ -68,6 +68,15 @@ class homepage
         return $second;
     }
 
+    // 获取评论数
+
+    private function getTotalComment($id){
+        $sql = "SELECT COUNT(*) as total FROM `junxun_comment` WHERE `topic_id` = {$id}";
+        $result = mysqli_query($this->link, $sql);
+        $row = mysqli_fetch_assoc($result);
+        return $row['total'];
+    }
+
     // 直接输出
     private function output($result){
         $data = [];
@@ -84,6 +93,7 @@ class homepage
             $data[$count]['title'] = $row['title'];
             $data[$count]['main_photo'] = $row['main_photo'];
             $data[$count]['second_photo'] = $this->getSecondPictures($row['id']);
+            $data[$count]['total_comment'] = $this->getTotalComment($row['id']);
             $data[$count]['total_second_photo'] = count($data[$count]['second_photo'])+1;
             $data[$count]['say'] = $row['say'];
             $data[$count]['beauty'] = $row['beauty'];
