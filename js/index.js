@@ -94,6 +94,13 @@ function selectPages() {
 // 搜索
 function search() {
     var keywords = $("#keywords").val();
+
+    keywords = keywords.replace(/\s+/g,"");
+    if (keywords == ""){
+        layer.msg("请输入关键词");
+        return;
+    }
+
     var data = {
         'api':'search',
         'keywords':keywords
@@ -101,5 +108,19 @@ function search() {
     submit_ajax(data, function (result) {
         layer.msg("搜索完成");
         renderPosts(result);
+    });
+}
+
+function vote(id) {
+    var data = {
+        'api':"votes",
+        'post_id':id
+    };
+    submit_ajax(data, function (result) {
+        if (result.ret == 0) {
+
+        }else{
+            layer.msg(result.msg);
+        }
     });
 }

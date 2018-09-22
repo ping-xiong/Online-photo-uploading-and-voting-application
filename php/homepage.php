@@ -74,6 +74,13 @@ class homepage
         $count = 0;
         while ($row = mysqli_fetch_assoc($result)){
             $data[$count]['id'] = $row['id'];
+            if (in_array($row['id'], $_SESSION['votes'])){
+                // 已投票
+                $data[$count]['votes_text'] = "已投";
+            }else{
+                // 未投票
+                $data[$count]['votes_text'] = "投票";
+            }
             $data[$count]['title'] = $row['title'];
             $data[$count]['main_photo'] = $row['main_photo'];
             $data[$count]['second_photo'] = $this->getSecondPictures($row['id']);

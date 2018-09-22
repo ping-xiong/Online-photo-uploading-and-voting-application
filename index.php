@@ -8,7 +8,6 @@
 
 ?>
 
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -193,12 +192,12 @@
                 <span class="am-badge am-badge-warning am-text-sm img-num">{{$value.total_second_photo}}图</span>
             </div>
             <div class="card-desc">
-                <p class="card-name">{{$value.id}}. {{$value.title}} <span class="votes">({{$value.votes}}票)</span></p>
+                <p class="card-name">{{$value.id}}. {{$value.title}} <span class="votes">( {{$value.votes}}票 )</span></p>
                 <p class="card-say">{{$value.say}}</p>
             </div>
             <div class="card-btn-group">
                 <div class="am-btn-group am-btn-group-justify">
-                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="vote({{$value.id}})" role="button"><i class="am-icon-check-square-o"></i>投票</a>
+                    <a class="am-btn am-btn-junxun" href="javascript:;" onclick="vote({{$value.id}})" role="button"><i class="am-icon-check-square-o"></i>{{$value.votes_text}}</a>
                     <a class="am-btn am-btn-junxun" href="javascript:;" onclick="comment({{$value.id}})" role="button"><i class="am-icon-th-list"></i>评论</a>
                     <a class="am-btn am-btn-junxun" href="share.php?id={{$value.id}}" role="button"><i class="am-icon-share-alt"></i>分享</a>
                 </div>
@@ -206,9 +205,6 @@
         </div>
         {{/each}}
     </script>
-
-
-
 
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>

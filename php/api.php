@@ -5,11 +5,17 @@
  * Date: 2018-09-21
  * Time: 9:27
  */
+ini_set('session.gc_maxlifetime', 43200); //设置时间，12小时过期
 
 session_start();
 
 if (!isset($_SESSION['max_upload_posts'])){
     $_SESSION['max_upload_posts'] = 0;
+}
+
+// 投票记录
+if (!isset($_SESSION['votes'])){
+    $_SESSION['votes'] = [];
 }
 
 include_once 'connect.php';
@@ -146,6 +152,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $homepage = new homepage($db->link);
             $keywords = $db->test_input($_POST['keywords']);
             $homepage->search($keywords);
+            break;
+        case 'votes':
+            // 投票
+            $post_id = $db->test_input($_POST['post_id']);
+            $ip = $db->getIP();
+
+
+            if (in_array($post_id, $_SESSION['votes'])){
+                $ret = [
+                    "ret"=>1,
+                    "msg"=>"您已投票，请过一段时间试试"
+                ];
+                echo json_encode($ret);
+            }else{
+                $sql = "INSERT INTO `junxun_votes`(`ip`, `post_id`) VALUES ('{$ip}', {$post_id})";
+                mysqli_query($db->link, $sql);
+                $sql = "UPDATE `junxun_photo` SET `votes`=`votes`+1 WHERE `id` = {$post_id}";
+                mysqli_query($db->link, $sql);
+
+                $_SESSION['votes'][] = $post_id;
+
+                $ret = [
+                    "ret"=>0,
+                    "msg"=>"投票成功"
+                ];
+                echo json_encode($ret);
+            }
+
+
             break;
     }
 

@@ -138,6 +138,10 @@ body > main > div > div.card-img figure{
     border-color: #ffffff;
 }
 
+.am-btn-junxun:hover{
+    color: #FFEB3B !important;
+}
+
 #card-box > div > div.card-img figure{
     margin: 0 !important;
 }
