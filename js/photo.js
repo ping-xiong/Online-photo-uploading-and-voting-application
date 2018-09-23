@@ -37,7 +37,11 @@ var uploader = new plupload.Uploader({
         FilesAdded: function(up, files) {
             plupload.each(files, function(file) {
                 // console.log(file.id+","+file.name+","+plupload.formatSize(file.size));
-                // console.log(files);
+                // console.log(file.type);
+                if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg"){
+                    layer.msg("仅支持格式为JPG和PNG的照片格式，请重新选择");
+                    return;
+                }
                 var preloader = new moxie.image.Image();
                 preloader.onload = function() {
                     preloader.downsize(300, 300); //先压缩一下要预览的图片,宽300，高300
@@ -170,55 +174,94 @@ var mutil_uploader = new plupload.Uploader({
         PostInit: function() {
 
         },
-        Browse: function(up, files){
+        Browse: function(up){
             // console.log(up); up.splice();
             old = up.files;
+            // console.log("浏览文件");
+            // console.log(up);
         },
         FilesAdded: function(up, files) {
 
+            // up.files = files;
             second_pictures = [];
 
-            // 移除旧文件
-            $.each(old, function (single) {
-                up.removeFile(single);
-            });
+            var diff_arr = getArrDifference(files, up.files);
+
+            for (var i = 0; i < diff_arr.length; i++){
+                up.removeFile(diff_arr[i]);
+            }
+            diff_arr = [];
+
 
             $("#clearSecondPicture").css("display", "block");
 
             // console.log(up);
             var count = 0;
             resetMutilPicture();
-            plupload.each(files, function(file) {
+            $.each(files, function(index, file) {
+                // console.log(file);
                 // console.log(file.id+","+file.name+","+plupload.formatSize(file.size));
-                // console.log(files);
-                var preloader = new moxie.image.Image();
-                preloader.onload = function() {
-                    preloader.downsize(300, 300); //先压缩一下要预览的图片,宽300，高300
-                    var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
-                    if (count == 0){
-                        // 图一
-                        $("#second-photo-box-1 div").html('<img id="picture-preview1" src="'+imgsrc+'" alt="图片预览">');
-                        $("#second-photo-box-2 div").html('<i class="am-icon-plus-circle"></i>');
-                    } else if (count == 1){
-                        // 图二
-                        $("#second-photo-box-2 div").html('<img id="picture-preview2" src="'+imgsrc+'" alt="图片预览">');
-                        $("#second-photo-box-3 div").html('<i class="am-icon-plus-circle"></i>');
-                    } else if (count == 2){
-                        // 图三
-                        $("#second-photo-box-3 div").html('<img id="picture-preview3" src="'+imgsrc+'" alt="图片预览">');
-                    } else{
-                        // 多余的图片删除掉
-                        up.removeFile(files[count]);
-                        layer.msg("最多能选择三张图片哦！");
-                    }
-                    count++;
-                    preloader.destroy();
-                    preloader = null;
-                };
-                preloader.onerror = function () {
-                    console.log("图片预览失败");
-                };
-                preloader.load(file.getSource());
+                // console.log(file.type);
+                if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg" && file.type != "image/gif"){
+                    layer.msg("仅支持格式为JPG和PNG的照片格式，请重新选择");
+                    return;
+                }
+                if (file.type == 'image/gif') {//gif使用FileReader进行预览,因为mOxie.Image只支持jpg和png
+                    var fr = new moxie.file.FileReader();
+                    fr.onload = function () {
+                        // callback(fr.result);
+                        if (count == 0){
+                            // 图一
+                            $("#second-photo-box-1 div").html('<img id="picture-preview1" src="'+fr.result+'" alt="图片预览">');
+                            $("#second-photo-box-2 div").html('<i class="am-icon-plus-circle"></i>');
+                        } else if (count == 1){
+                            // 图二
+                            $("#second-photo-box-2 div").html('<img id="picture-preview2" src="'+fr.result+'" alt="图片预览">');
+                            $("#second-photo-box-3 div").html('<i class="am-icon-plus-circle"></i>');
+                        } else if (count == 2){
+                            // 图三
+                            $("#second-photo-box-3 div").html('<img id="picture-preview3" src="'+fr.result+'" alt="图片预览">');
+                        } else{
+                            // 多余的图片删除掉
+                            up.removeFile(files[count]);
+                            layer.msg("最多能选择三张图片哦！");
+                        }
+                        fr.destroy();
+                        fr = null;
+                        count++;
+                    };
+                    fr.readAsDataURL(file.getSource());
+                } else {
+                    var preloader = new moxie.image.Image();
+                    preloader.onload = function() {
+                        preloader.downsize(300, 300); //先压缩一下要预览的图片,宽300，高300
+                        var imgsrc = preloader.type == 'image/jpeg' ? preloader.getAsDataURL('image/jpeg', 80) : preloader.getAsDataURL(); //得到图片src,实质为一个base64编码的数据
+                        if (count == 0){
+                            // 图一
+                            $("#second-photo-box-1 div").html('<img id="picture-preview1" src="'+imgsrc+'" alt="图片预览">');
+                            $("#second-photo-box-2 div").html('<i class="am-icon-plus-circle"></i>');
+                        } else if (count == 1){
+                            // 图二
+                            $("#second-photo-box-2 div").html('<img id="picture-preview2" src="'+imgsrc+'" alt="图片预览">');
+                            $("#second-photo-box-3 div").html('<i class="am-icon-plus-circle"></i>');
+                        } else if (count == 2){
+                            // 图三
+                            $("#second-photo-box-3 div").html('<img id="picture-preview3" src="'+imgsrc+'" alt="图片预览">');
+                        } else{
+                            // 多余的图片删除掉
+                            up.removeFile(files[count]);
+                            layer.msg("最多能选择三张图片哦！");
+                        }
+                        count++;
+                        preloader.destroy();
+                        preloader = null;
+                    };
+                    preloader.onerror = function () {
+                        console.log("图片预览失败");
+                    };
+                    preloader.load(file.getSource());
+                }
+
 
                 isAnalysis = 0;
 
@@ -236,6 +279,7 @@ var mutil_uploader = new plupload.Uploader({
             $("#main-process-bar2").hide(500);
             data.second_pictures = window.second_pictures;
             up.splice();
+            old = [];
 
             // 提交
             submitNewPost();
@@ -368,4 +412,14 @@ function submitNewPost() {
 // 统计字数
 function count_words() {
     $("#word-count").text($("#say").val().length+"/500字");
+}
+
+function getArrDifference(arr1, arr2){
+
+    return arr1.concat(arr2).filter(function(v, i, arr) {
+
+        return arr.indexOf(v) === arr.lastIndexOf(v);
+
+    });
+
 }

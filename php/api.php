@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             break;
         case 'submit':
 
-            if (isset($_SESSION['max_upload_posts']) && $_SESSION['max_upload_posts'] > 5){
+            if (isset($_SESSION['max_upload_posts']) && $_SESSION['max_upload_posts'] > config::$homepage['max_upload_post']){
                 $ret = [
                     "ret"=>1,
                     "msg"=>"您在今天发布已超过限制，请明天再来"
@@ -228,6 +228,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $post_id = $db->test_input($_POST['post_id']);
             include_once  'homepage.php';
             $homepage = new homepage($db->link);
+            addPopular($db->link, $post_id);
             $homepage->getPostById($post_id);
             break;
         default:
