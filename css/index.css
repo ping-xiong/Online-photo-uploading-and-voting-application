@@ -10,7 +10,7 @@ html, body{
 
 /* 头部图片样式 */
 header#header-background{
-    height: 300px;
+    height: 400px;
     width: 100%;
     background-image: url("../images/header.jpg");
     background-size: 100%;

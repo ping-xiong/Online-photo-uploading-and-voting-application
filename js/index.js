@@ -288,12 +288,12 @@ function startComment(id) {
                     }
                 });
 
-                $("#comment-name").val("");
+                // $("#comment-name").val("");
                 $("#comment-say").val("");
             }
         },
         onCancel: function(e) {
-            $("#comment-name").val("");
+            // $("#comment-name").val("");
             $("#comment-say").val("");
         }
     });

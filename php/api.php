@@ -94,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $sql = "INSERT INTO `junxun_photo`(`title`, `main_photo`, `say`, `beauty`, `smile`, `ip`) VALUES ('{$title}', '{$main_picture}', '{$say}', {$beauty}, {$smile}, '{$ip}')";
             mysqli_query($db->link, $sql);
+            $new_post_id = mysqli_insert_id($db->link);
 
             $insert_id = mysqli_insert_id($db->link);
             if (isset($_POST['second_pictures'])){
@@ -116,7 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $ret = [
                 "ret"=>0,
-                "msg"=>"提交成功"
+                "msg"=>"提交成功",
+                "post_id"=>$new_post_id
             ];
             echo json_encode($ret);
             break;

@@ -344,7 +344,18 @@ function submitNewPost() {
         // console.log(data);
         submit_ajax(data, function (result) {
             if (result.ret == 0){
-                layer.msg(result.msg);
+                var post_id = result.post_id;
+                // layer.msg(result.msg);
+                $('#submit-success-modal').modal({
+                    relatedTarget: this,
+                    onConfirm: function(options) {
+                        window.location.href = "share.php?id="+post_id;
+                    },
+                    // closeOnConfirm: false,
+                    onCancel: function() {
+
+                    }
+                });
                 resetAll();
             }else{
                 layer.msg(result.msg);

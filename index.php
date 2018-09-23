@@ -39,15 +39,15 @@
             </div>
             <div class="am-g" id="statistics">
                 <div class="am-u-sm-4">
-                    <span id="statistics-photos"></span>
+                    <span id="statistics-photos">0</span>
                     <span>照片总数</span>
                 </div>
                 <div class="am-u-sm-4">
-                    <span id="statistics-popular"></span>
+                    <span id="statistics-popular">0</span>
                     <span>人气总数</span>
                 </div>
                 <div class="am-u-sm-4">
-                    <span id="statistics-votes"></span>
+                    <span id="statistics-votes">0</span>
                     <span>投票总数</span>
                 </div>
             </div>
@@ -226,7 +226,7 @@
 
     </main>
     <footer id="toolbar">
-        <div class="am-btn-group am-btn-group-justify bottom-btns">
+        <div class="am-btn-group am-btn-group-justify bottom-btns" style="box-shadow: 0px -1px 5px #989898;">
             <a class="am-btn am-btn-danger" role="button" href="javascript:;" onclick="switchMenu('homepage')"><i class="am-icon-home"></i><br>首页</a>
             <a class="am-btn am-btn-primary" role="button" href="javascript:;" onclick="switchMenu('upload')"><i class="am-icon-picture-o"></i><br>我要晒照</a>
             <a class="am-btn am-btn-success" role="button" href="javascript:;" onclick="switchMenu('help')"><i class="am-icon-question-circle-o"></i><br>活动介绍</a>
@@ -357,6 +357,20 @@
             <div class="am-modal-footer">
                 <span class="am-modal-btn" data-am-modal-cancel>取消</span>
                 <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="am-modal am-modal-confirm" tabindex="-1" id="submit-success-modal">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">提交成功！</div>
+            <div class="am-modal-bd">
+                提交成功啦！分享给小伙伴帮忙拉票加油吧
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>分享一下</span>
             </div>
         </div>
     </div>
