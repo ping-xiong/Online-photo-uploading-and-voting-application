@@ -54,6 +54,13 @@
             <div id="card-box">
 
             </div>
+            <div id="share-hint" style="display: none;">
+                <div style="text-align: center; color: #777">
+                    <p>分享该页面链接给小伙伴们帮忙拉票加油吧！</p>
+                    <p>页面链接： <span class="red-text"><script>document.write(window.location.href)</script></span> </p>
+                    <a href="index.php">查看更多照片</a>
+                </div>
+            </div>
             <ul data-am-widget="pagination" class="am-pagination am-pagination-select">
                 <li class="am-pagination-prev ">
                     <a href="javascript:;" class="" onclick="previousPage()">上一页</a>
@@ -386,8 +393,17 @@
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
     <script>
-        getPosts();
-        getPages();
+        if (getUrlParam('id') != null){
+
+            getPostByID(getUrlParam('id'));
+            $("#share-hint").css("display","block");
+
+        }else {
+            getPosts();
+            getPages();
+            $("#share-hint").css("display","none");
+        }
+
         getStatistics();
     </script>
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274880510'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/stat.php%3Fid%3D1274880510' type='text/javascript'%3E%3C/script%3E"));</script>

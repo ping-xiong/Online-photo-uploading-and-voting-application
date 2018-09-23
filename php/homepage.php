@@ -106,4 +106,12 @@ class homepage
         echo json_encode($data);
     }
 
+
+    // 按照ID 进行输出
+    public function getPostById($post_id){
+        $sql = "SELECT * FROM `junxun_photo` WHERE `is_check` = 1 AND `id` = {$post_id}";
+        $result = mysqli_query($this->link, $sql);
+        $this->output($result);
+    }
+
 }

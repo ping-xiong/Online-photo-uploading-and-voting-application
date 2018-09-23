@@ -223,6 +223,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             echo json_encode($arr);
             break;
+        case 'share':
+            // 分享
+            $post_id = $db->test_input($_POST['post_id']);
+            include_once  'homepage.php';
+            $homepage = new homepage($db->link);
+            $homepage->getPostById($post_id);
+            break;
         default:
             echo "提交成功";
     }

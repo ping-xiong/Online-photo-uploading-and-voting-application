@@ -60,6 +60,14 @@ function getPages() {
 
 // 获取帖子
 function getPosts() {
+
+    if (getUrlParam('id') != null){
+        // 修改URL
+        // updateURL();
+        window.location.href = "index.php";
+        $("#share-hint").css("display","none");
+    }
+
     var data = {
       'api':"homepage",
       'mode':current_mode,
@@ -311,4 +319,41 @@ function getStatistics() {
         $("#statistics-votes").text(result.vote);
         $("#statistics-popular").text(result.popular);
     });
+}
+
+// 获取url参数
+//获取RUL参数值
+function getUrlParam(name) {               /*?videoId=identification  */
+    var params = decodeURI(window.location.search);        /* 截取？号后面的部分    index.html?act=doctor,截取后的字符串就是?act=doctor  */
+    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+    var r = params.substr(1).match(reg);
+    if (r!=null) return unescape(r[2]); return null;
+}
+
+// 获取某个id的数据
+function getPostByID(id) {
+    var data = {
+        'api':'share',
+        'post_id':id
+    };
+    submit_ajax(data, function (result) {
+        renderPosts(result);
+    });
+}
+
+// 获取当前url
+function getFullURL() {
+    return window.location.protocol+"//"+window.location.host+"/"+window.location.pathname;
+}
+
+// 更新url
+function updateURL() {
+    url = getFullURL();
+    console.log(getFullURL());
+    var state = {
+        title: document.title,
+        url: url,
+        otherkey: ""
+    };
+    window.history.pushState(state, document.title, url);
 }
