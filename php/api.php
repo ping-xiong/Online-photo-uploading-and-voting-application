@@ -212,6 +212,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             addPopular($db->link, $post_id);
             break;
+        case 'statistics':
+            // 基本统计
+            include_once "statistics.php";
+            $arr['photo'] = statistics::getTotalPosts($db->link);
+            $arr['popular'] = statistics::getTotalPopular($db->link);
+            $arr['vote'] = statistics::getTotalVotes($db->link);
+
+            echo json_encode($arr);
+            break;
+        default:
+            echo "提交成功";
     }
 
 }else{

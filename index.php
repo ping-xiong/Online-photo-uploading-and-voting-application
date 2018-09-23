@@ -34,8 +34,22 @@
             <div class="am-input-group" id="search-div">
                 <input type="text" id="keywords" class="am-form-field" placeholder="搜索名字">
                 <span class="am-input-group-btn" onclick="search()">
-            <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
-          </span>
+                    <button class="am-btn am-btn-success" type="button"><span class="am-icon-search"></span> </button>
+                </span>
+            </div>
+            <div class="am-g" id="statistics">
+                <div class="am-u-sm-4">
+                    <span id="statistics-photos"></span>
+                    <span>照片总数</span>
+                </div>
+                <div class="am-u-sm-4">
+                    <span id="statistics-popular"></span>
+                    <span>人气总数</span>
+                </div>
+                <div class="am-u-sm-4">
+                    <span id="statistics-votes"></span>
+                    <span>投票总数</span>
+                </div>
             </div>
             <div id="card-box">
 
@@ -65,14 +79,18 @@
             <p style="text-align: center; font-size: 14px; color: #777">
                 当前排序模式：<span id="current-mode">最新上传(默认)</span> <a href="javascript:;" data-am-modal="{target: '#select-mode'}">>>>选择其他模式</a>
             </p>
+            <a style=" text-align: center; display: block; " href="http://dq.tieba.com/f?kw=%E5%B9%BF%E8%A5%BF%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6&ie=utf-8">
+                <img data-original="images/tieba2.png" height="76" class="lazy" alt="广西科技大学吧" style=" width: auto; ">
+                <p style="margin: 0">百度贴吧·广西科技大学吧出品</p>
+            </a>
         </section>
         <section id="upload" style="display: none">
             <div class="am-form-group">
-                <label for="doc-ds-ipt-1">标题/名字</label>
+                <label for="doc-ds-ipt-1">标题/名字 <span class="red-text">*</span> </label>
                 <input type="text" id="post-title" class="am-form-field am-round" placeholder="最好是姓名哦">
             </div>
             <div style="margin-bottom: 10px">
-                <i class="am-icon-picture-o"></i> 选择主图
+                <i class="am-icon-picture-o"></i> 选择主图 <span class="red-text">*</span>
             </div>
             <div id="main-photo-box" class="am-vertical-align">
                 <div class="am-vertical-align-middle preview-box">
@@ -137,7 +155,73 @@
             <button type="button" class="am-btn am-btn-primary  am-round" id="submit" onclick="submitNewPost()">确认提交</button>
         </section>
         <section id="help" style="display: none">
+            <section class="am-panel am-panel-primary">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">百度贴吧·广西科技大学吧出品</h3>
+                </header>
+                <div class="am-panel-bd">
+                    <a style=" text-align: center; display: block; " href="http://dq.tieba.com/f?kw=%E5%B9%BF%E8%A5%BF%E7%A7%91%E6%8A%80%E5%A4%A7%E5%AD%A6&ie=utf-8">
+                        <img data-original="images/tieba2.png" class="lazy" height="76" alt="广西科技大学吧" style=" width: auto; ">
+                    </a>
+                </div>
+            </section>
+            <section class="am-panel am-panel-secondary">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">活动详情</h3>
+                </header>
+                <div class="am-panel-bd" style=" text-align: center; ">
+                    <p>这可能是你们人生中最后一次军训</p>
+                    <p>也可能是印象最深刻的一次</p>
+                    <p>大家可以</p>
+                    <p>晒自己</p>
+                    <p>晒闺蜜</p>
+                    <p>晒基友</p>
+                    <p>晒教官</p>
+                    <p>怎么也得为自己留下最美好的句号吧！</p>
+                </div>
+            </section>
+            <section class="am-panel am-panel-success">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">活动规则</h3>
+                </header>
+                <div class="am-panel-bd">
+                    <p>1. 活动期间，每天最多可给同一选手投 <span class="red-text">1</span> 票；</p>
 
+                    <p>2. 报名提交的照片必须为本人照片，并且与军训主题有关，对因照片产生的纠纷由参赛者本人承担；</p>
+
+                    <p>3. 活动截止至<span class="red-text">10月30日晚9：00</span>，活动结束前均可报名参加；</p>
+
+                    <p>4. 违反规则的投票，主办方有权封ip，剔除非正常数据，取消选手资格等；</p>
+
+                    <p>5. 活动对象：广西科技大学全校学生；</p>
+                </div>
+            </section>
+            <section class="am-panel am-panel-success">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">使用帮助</h3>
+                </header>
+                <div class="am-panel-bd">
+                    <p>点击分享按钮后，会跳转到新页面，把该页面链接分享到朋友圈，空间，群等，别人均可通过该链接直接看到被分享的照片，并且可以进行点赞，评论等操作，叫上亲戚朋友帮忙拉票吧！</p>
+                    <p>上传照片界面，可点击图片重选新的照片。</p>
+                    <p>该应用使用AI人工智能分析主图的数据，仅供参考。</p>
+                    <p>如果AI分析照片失败，可以无视，填写姓名后，也可以提交照片。</p>
+                    <p>AI能够识别同一张图片中最多人数是未知的，分析失败也可提交照片。</p>
+                    <p>AI评分满分为 <span class="red-text">100</span> 分。</p>
+                    <p>每张图片的大小不能超过 <span class="red-text">5Mb</span>。</p>
+                    <p>如有不友善言论，可联系管理员QQ：<span class="red-text">597914752</span>，进行删除。</p>
+                </div>
+            </section>
+            <section class="am-panel am-panel-danger">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">免责声明</h3>
+                </header>
+                <div class="am-panel-bd">
+                    <p>1. 因照片产生的纠纷由参赛者本人承担</p>
+                    <p>2. 如果发现自己的照片出现在网站上并且非本人上传，可联系管理员QQ：<span class="red-text">597914752</span>，进行删除。</p>
+                    <p>3. 照片版权归照片本人所有。</p>
+                </div>
+            </section>
+            <a href="https://pingxonline.com/"><p style=" text-align: center; font-size: 14px; color: #777; ">开发者博客：https://pingxonline.com/</p></a>
         </section>
 
     </main>
@@ -145,7 +229,7 @@
         <div class="am-btn-group am-btn-group-justify bottom-btns">
             <a class="am-btn am-btn-danger" role="button" href="javascript:;" onclick="switchMenu('homepage')"><i class="am-icon-home"></i><br>首页</a>
             <a class="am-btn am-btn-primary" role="button" href="javascript:;" onclick="switchMenu('upload')"><i class="am-icon-picture-o"></i><br>我要晒照</a>
-            <a class="am-btn am-btn-success" role="button" href="javascript:;" onclick="switchMenu('help')"><i class="am-icon-question-circle-o"></i><br>帮助</a>
+            <a class="am-btn am-btn-success" role="button" href="javascript:;" onclick="switchMenu('help')"><i class="am-icon-question-circle-o"></i><br>活动介绍</a>
         </div>
     </footer>
 
@@ -180,13 +264,13 @@
                 </div>
                 <div class="am-g card-img-info">
                     <div class="am-u-sm-4">
-                        <p class="card-img-beauty"><i class="am-icon-eye"></i>颜值：{{$value.beauty}}</p>
+                        <p class="card-img-beauty"><i class="am-icon-eye"></i>颜值：{{$value.beauty}}分</p>
                     </div>
                     <div class="am-u-sm-4">
-                        <p class="card-img-hot"><i class="am-icon-smile-o"></i>笑容：{{$value.smile}}</p>
+                        <p class="card-img-hot"><i class="am-icon-smile-o"></i>笑容：{{$value.smile}}分</p>
                     </div>
                     <div class="am-u-sm-4">
-                        <p class="card-img-hot"><i class="am-icon-fire"></i>人气：{{$value.popular}}</p>
+                        <p class="card-img-hot"><i class="am-icon-fire"></i>人气：{{$value.popular}}°C</p>
                     </div>
                 </div>
             </div>
@@ -290,6 +374,8 @@
     <script>
         getPosts();
         getPages();
+        getStatistics();
     </script>
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274880510'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/stat.php%3Fid%3D1274880510' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>
 </html>

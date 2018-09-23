@@ -108,6 +108,7 @@ body > main > div > div.card-img figure{
 }
 .card-img-info div p{
     margin: 0 !important;
+    text-align: center;
 }
 
 .card-img-hot i, .card-img-beauty i{
@@ -258,4 +259,27 @@ body > main > div > div.card-img figure{
 .comment-hint{
     text-align: center;
     margin: 20px;
+}
+
+#statistics{
+    margin-bottom: 10px;
+}
+
+#statistics span{
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    background: #05574f;
+    color: #fff;
+}
+
+#statistics #statistics-photos, #statistics #statistics-votes, #statistics #statistics-popular{
+    font-size: 24px;
+    font-weight: bold;
+    background: #009688;
+}
+
+.red-text{
+    color: red;
+    font-weight: bold;
 }

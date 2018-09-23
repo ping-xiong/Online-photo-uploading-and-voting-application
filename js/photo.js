@@ -22,9 +22,9 @@ var uploader = new plupload.Uploader({
     },
     filters : {
         max_file_size: '5mb',
-        mime_types: [
-            {title: "Image files", extensions: "jpg,bmp,png,jpeg"}
-        ]
+        // mime_types: [
+        //     {title: "Image files", extensions: "jpg,bmp,png,jpeg"}
+        // ]
     },
     // Flash settings
     flash_swf_url : 'https://cdn.bootcss.com/plupload/2.3.6/Moxie.swf',
@@ -158,9 +158,9 @@ var mutil_uploader = new plupload.Uploader({
     },
     filters : {
         max_file_size: '5mb',
-        mime_types: [
-            {title: "Image files", extensions: "jpg,bmp,png,jpeg"}
-        ]
+        // mime_types: [
+        //     {title: "Image files", extensions: "jpg,png"}
+        // ]
     },
     // Flash settings
     flash_swf_url : 'https://cdn.bootcss.com/plupload/2.3.6/Moxie.swf',

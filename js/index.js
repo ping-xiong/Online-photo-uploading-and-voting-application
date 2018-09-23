@@ -77,7 +77,9 @@ function renderPosts(result) {
     document.getElementById("card-box").innerHTML=html;
     AMUI.figure.init();
     // 懒性加载
-    $(".lazy").lazyload();
+    $(".lazy").lazyload({
+        effect : "fadeIn"
+    });
 }
 
 
@@ -294,5 +296,19 @@ function startComment(id) {
             $("#comment-name").val("");
             $("#comment-say").val("");
         }
+    });
+}
+
+
+// 获取统计
+function getStatistics() {
+    var data = {
+      'api':"statistics"
+    };
+
+    submit_ajax(data, function (result) {
+        $("#statistics-photos").text(result.photo);
+        $("#statistics-votes").text(result.vote);
+        $("#statistics-popular").text(result.popular);
     });
 }
