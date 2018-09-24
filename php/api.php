@@ -78,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $title = $db->test_input($_POST['title']);
             $say = $db->test_input($_POST['say']);
+            $contact = $db->test_input($_POST['contact']);
             $main_picture = $db->test_input($_POST['main_picture']);
             if (isset($_SESSION['beauty'])){
                 $beauty = $_SESSION['beauty'];
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $ip = $db->getIP();
 
-            $sql = "INSERT INTO `junxun_photo`(`title`, `main_photo`, `say`, `beauty`, `smile`, `ip`) VALUES ('{$title}', '{$main_picture}', '{$say}', {$beauty}, {$smile}, '{$ip}')";
+            $sql = "INSERT INTO `junxun_photo`(`title`, `main_photo`, `say`, `beauty`, `smile`, `contact`,`ip`) VALUES ('{$title}', '{$main_picture}', '{$say}', {$beauty}, {$smile}, '{$contact}','{$ip}')";
             mysqli_query($db->link, $sql);
             $new_post_id = mysqli_insert_id($db->link);
 

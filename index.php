@@ -159,6 +159,12 @@
                 <textarea class="am-form-field am-radius" onkeydown="count_words()" rows="4" id="say" placeholder="感慨/对教官说的话/对大学的期待..."></textarea>
                 <span id="word-count">0/500字</span>
             </div>
+
+            <div class="am-form-group">
+                <label for="post-contact">联系方式</label>
+                <input type="text" id="post-contact" class="am-form-field am-round" placeholder="手机号码或者QQ号，仅在获奖联系用">
+            </div>
+
             <button type="button" class="am-btn am-btn-primary  am-round" id="submit" onclick="submitNewPost()">确认提交</button>
         </section>
         <section id="help" style="display: none">
@@ -184,7 +190,7 @@
                     <p>晒闺蜜</p>
                     <p>晒基友</p>
                     <p>晒教官</p>
-                    <p>怎么也得为自己留下最美好的句号吧！</p>
+                    <p>怎么也得为这一次军训留下最美好的句号吧！</p>
                 </div>
             </section>
             <section class="am-panel am-panel-success">

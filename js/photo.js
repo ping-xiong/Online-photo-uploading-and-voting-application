@@ -319,6 +319,7 @@ function resetAll() {
 
     $("#post-title").val("");
     $("#say").val("");
+    $("#post-contact").val("");
     $("#word-count").text("0/500字");
 
     $("#detectFace").css("display","none");
@@ -353,6 +354,7 @@ function submitNewPost() {
 
     var title = $("#post-title").val();
     var say = $("#say").val();
+    var contact = $("#post-contact").val();
 
     title = title.replace(/\s+/g,"");
     if (title == "" || title == " "){
@@ -378,6 +380,7 @@ function submitNewPost() {
     data.title = title;
     data.main_picture = main_picture;
     data.say = say;
+    data.contact = contact;
     data.second_pictures = second_pictures;
 
     if (mutil_uploader.files.length > 0) {
