@@ -5,9 +5,7 @@
  * Date: 2018-09-20
  * Time: 11:50
  */
-
 ?>
-
 <!doctype html>
 <html lang="zh-CN">
 <head>
@@ -15,12 +13,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" />
+<!--    <link href="https://cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">-->
     <link rel="icon" type="image/png" href="tieba.png">
     <title>广科大吧最美军训照</title>
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
-
     <!-- No Baidu Siteapp-->
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="stylesheet" href="css/index.css">
@@ -51,8 +49,8 @@
                     <span>投票总数</span>
                 </div>
             </div>
+            <p style="text-align: center"><a href="javascript:;" onclick="viewReward()">查看奖项设置</a></p>
             <div id="card-box">
-
             </div>
             <div id="share-hint" style="display: none;">
                 <div style="text-align: center; color: #777">
@@ -120,7 +118,6 @@
                 <div class="am-progress-bar" id="main-process-bar-process" style="width: 0%">0%</div>
             </div>
             <br>
-
             <div style="margin-bottom: 10px">
                 <i class="am-icon-picture-o"></i> 选择副图(选填,可多选,最多三张)
             </div>
@@ -153,18 +150,15 @@
             <div id="main-process-bar2" class="am-progress" style="display: none">
                 <div class="am-progress-bar" id="main-process-bar-process2" style="width: 0%">0%</div>
             </div>
-
             <div class="am-form-group" id="say-something">
                 <label for="say">说点什么吧</label>
                 <textarea class="am-form-field am-radius" onkeydown="count_words()" rows="4" id="say" placeholder="感慨/对教官说的话/对大学的期待..."></textarea>
                 <span id="word-count">0/500字</span>
             </div>
-
             <div class="am-form-group">
                 <label for="post-contact">联系方式</label>
-                <input type="text" id="post-contact" class="am-form-field am-round" placeholder="手机号码或者QQ号，仅在获奖联系用">
+                <input type="text" id="post-contact" class="am-form-field am-round" placeholder="保密，手机号码或者QQ号，仅在获奖联系用">
             </div>
-
             <button type="button" class="am-btn am-btn-primary  am-round" id="submit" onclick="submitNewPost()">确认提交</button>
         </section>
         <section id="help" style="display: none">
@@ -191,6 +185,18 @@
                     <p>晒基友</p>
                     <p>晒教官</p>
                     <p>怎么也得为这一次军训留下最美好的句号吧！</p>
+                </div>
+            </section>
+            <section class="am-panel am-panel-success">
+                <header class="am-panel-hd">
+                    <h3 class="am-panel-title">奖项设置</h3>
+                </header>
+                <div class="am-panel-bd">
+                    <p>根据最高得票数进行排名。</p>
+                    <p>一等奖: <span class="red-text">iPhone Xs MAX</span> </p>
+                    <p>二等奖: <span class="red-text">时尚拍立得</span> </p>
+                    <p>三等奖: <span class="red-text">精美电饭煲</span> </p>
+                    <P>优秀奖: 若干名</P>
                 </div>
             </section>
             <section class="am-panel am-panel-success">
@@ -375,7 +381,6 @@
         </div>
     </div>
 
-
     <div class="am-modal am-modal-confirm" tabindex="-1" id="submit-success-modal">
         <div class="am-modal-dialog">
             <div class="am-modal-hd">提交成功！</div>
@@ -388,29 +393,32 @@
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/amazeui/2.7.2/js/amazeui.min.js"></script>
-    <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>
-    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
-    <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plupload/2.3.6/plupload.full.min.js"></script>
+<!--    <script src="https://cdn.bootcss.com/plupload/2.3.6/plupload.full.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/layer/2.3/layer.js"></script>
+<!--    <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plupload/2.3.6/i18n/zh_CN.js"></script>
+<!--    <script src="https://cdn.bootcss.com/plupload/2.3.6/i18n/zh_CN.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+<!--    <script src="https://cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>-->
     <script src="js/lib/template-web.js"></script>
     <script src="js/lib/lazyload.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/photo.js"></script>
     <script>
         if (getUrlParam('id') != null){
-
+            // 如url有带有id参数，只查看指定的id的帖子
             getPostByID(getUrlParam('id'));
             $("#share-hint").css("display","block");
-
         }else {
+            // 默认显示模式，载入帖子和页数
             getPosts();
             getPages();
             $("#share-hint").css("display","none");
         }
-
+        // 获取统计信息
         getStatistics();
     </script>
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274880510'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/stat.php%3Fid%3D1274880510' type='text/javascript'%3E%3C/script%3E"));</script>

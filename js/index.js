@@ -18,6 +18,10 @@ function switchMenu(target) {
     }
 }
 
+function viewReward() {
+    hide_all();
+    $("#help").css("display", "block");
+}
 
 // 更改模式
 function switchMode(newMode) {
@@ -75,7 +79,12 @@ function getPosts() {
     };
 
     submit_ajax(data, function (result) {
-        renderPosts(result);
+        if (result.length == 0) {
+            $("#card-box").html("<p style='text-align: center'>目前还没人参加，抢先上传照片吧！</p>");
+        }else{
+            renderPosts(result);
+        }
+
     });
 }
 

@@ -12,5 +12,6 @@ if (isset($_GET['id']) && isset($_GET['id']) != 0){
     header("Location: index.php?id=".$_GET['id']);
 
 }else{
+    // 假装分享成功
     echo "分享成功";
 }

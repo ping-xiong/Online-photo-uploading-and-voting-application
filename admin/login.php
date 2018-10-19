@@ -11,8 +11,10 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == 1){
     header("Location: index.php");
 }
 
+include_once "../php/config.php";
+
 if (isset($_POST['username'])){
-    if ($_POST['username'] == "广科大吧" && $_POST['password'] == '5201314'){
+    if ($_POST['username'] == config::$admin["username"] && $_POST['password'] == config::$admin["password"]){
         $_SESSION['login'] = 1;
         header("Location: index.php");
     }else{
