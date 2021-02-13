@@ -34,36 +34,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         case 'detectFace':
             // 人脸检测
             $fileName = $db->test_input($_POST['fileName']);
-            $result = detectFace::detect(config::$detectFace['img_path'].$fileName);
-            // 提取需要的属性
-            $data = json_decode($result);
-            if ($data->ret == 0){
-                $beauty = 0;
-                $smile = 0;
-                $people = 0;
-                for ($i = 0; $i < count($data->data->face_list); $i++){
-                    $beauty += $data->data->face_list[$i]->beauty;
-                    $smile += $data->data->face_list[$i]->expression;
-                    $people++;
+            if(config::$detectFace['open']){
+                $result = detectFace::detect(config::$detectFace['img_path'].$fileName);
+                // 提取需要的属性
+                $data = json_decode($result);
+                if ($data->ret == 0){
+                    $beauty = 0;
+                    $smile = 0;
+                    $people = 0;
+                    for ($i = 0; $i < count($data->data->face_list); $i++){
+                        $beauty += $data->data->face_list[$i]->beauty;
+                        $smile += $data->data->face_list[$i]->expression;
+                        $people++;
+                    }
+                    $avg_beauty = number_format($beauty/$people, 2);
+                    $avg_smile = number_format($smile/$people, 2);
+                    $final = [
+                        "ret"=>$data->ret,
+                        "beauty"=>$avg_beauty,
+                        "smile"=>$avg_smile,
+                        "people"=>$people
+                    ];
+                    $_SESSION['beauty'] = $avg_beauty;
+                    $_SESSION['smile'] = $avg_smile;
+                }else{
+                    $_SESSION['beauty'] = 0;
+                    $_SESSION['smile'] = 0;
+                    $final = [
+                        "ret"=>$data->ret
+                    ];
                 }
-                $avg_beauty = number_format($beauty/$people, 2);
-                $avg_smile = number_format($smile/$people, 2);
-                $final = [
-                    "ret"=>$data->ret,
-                    "beauty"=>$avg_beauty,
-                    "smile"=>$avg_smile,
-                    "people"=>$people
-                ];
-                $_SESSION['beauty'] = $avg_beauty;
-                $_SESSION['smile'] = $avg_smile;
+                echo json_encode($final);
             }else{
                 $_SESSION['beauty'] = 0;
                 $_SESSION['smile'] = 0;
                 $final = [
-                    "ret"=>$data->ret
+                    "ret"=>""
                 ];
+                 echo json_encode($final);
             }
-            echo json_encode($final);
+            
             break;
         case 'submit':
 
