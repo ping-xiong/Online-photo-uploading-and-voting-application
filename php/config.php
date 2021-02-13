@@ -9,6 +9,7 @@
 class config
 {
     public static $detectFace = [
+        "open" => true, // 是否开启人脸识别功能，true 为开启， false 为关闭
         // 接口申请地址：https://ai.qq.com/ ，免费使用
         "APPID"=>"2108474938", // 【修改为你申请的】人脸识别接口APPID
         "APPKEY"=>"zZOXCR29ET8lEeQd", // 【修改为你申请的】人脸识别接口APPKEY
